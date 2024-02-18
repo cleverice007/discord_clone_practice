@@ -1,6 +1,6 @@
 import React from 'react';
 
-const inputWithLabel = ({ value, setValue, label, type, placeholder }) => {
+const InputWithLabel = ({ value, setValue, label, type, placeholder }) => {
   const handleValueChange = (event) => {
     setValue(event.target.value);
   };
@@ -21,4 +21,4 @@ const inputWithLabel = ({ value, setValue, label, type, placeholder }) => {
   );
 };
 
-export default inputWithLabel;
+export default InputWithLabel;

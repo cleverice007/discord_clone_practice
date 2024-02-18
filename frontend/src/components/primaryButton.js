@@ -1,6 +1,6 @@
 import React from 'react';
 
-const primaryButton = ({ label, additionalStyles, disabled, onClick }) => {
+const PrimaryButton = ({ label, additionalStyles, disabled, onClick }) => {
   return (
     <button
       className={`text-white bg-blue-600 hover:bg-blue-700 font-medium text-base px-4 py-2 rounded transition duration-150 ease-in-out ${
@@ -14,4 +14,4 @@ const primaryButton = ({ label, additionalStyles, disabled, onClick }) => {
   );
 };
 
-export default primaryButton;
+export default PrimaryButton;
