@@ -22,13 +22,13 @@ const RegisterPage = () => {
     const handleRegister = async () => {
       try {
         // execute the register mutation
-        const userDetails = await register({ mail, password }).unwrap();
+        const userDetails = await register({ mail,username, password }).unwrap();
         // update the user details in the store
         dispatch(setUserDetails(userDetails));
         // redirect the user to the protected route
         navigate("/dashboard");
       } catch (error) {
-        console.error('Failed to login:', error);
+        console.error('Failed to register:', error);
         // handle the error
       }
     };
