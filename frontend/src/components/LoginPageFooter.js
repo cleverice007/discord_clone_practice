@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const getFormNotValidMessage = () => {
   return "Enter correct e-mail address and password should contains between 6 and 12 characters";
@@ -10,10 +10,10 @@ const getFormValidMessage = () => {
 };
 
 const LoginPageFooter = ({ handleLogin, isFormValid }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handlePushToRegisterPage = () => {
-    history.push("/register");
+    navigate("/register");
   };
 
   return (
@@ -40,3 +40,4 @@ const LoginPageFooter = ({ handleLogin, isFormValid }) => {
 };
 
 export default LoginPageFooter;
+
