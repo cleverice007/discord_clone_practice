@@ -1,7 +1,7 @@
-import logo from './logo.svg';
 import './App.css';
 import React from 'react';
 import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 import {
   BrowserRouter as Router,
   Route,
@@ -13,6 +13,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
       </Routes>
     </Router>
   );
