@@ -4,6 +4,7 @@ import { setUserDetails, logout } from '../slices/authSlice';
 import SideBar from '../components/Sidebar/SideBar';
 import FriendsSideBar from '../components/FriendsSideBar/FriendsSideBar';
 import AppBar from '../components/AppBar/AppBar';
+import Messenger from '../components/Messenger/Messenger';
 
 const Dashboard = () => {
     const dispatch = useDispatch(); 
@@ -22,6 +23,7 @@ const Dashboard = () => {
         <div className="w-full h-screen flex">
             <SideBar />
             <FriendsSideBar />
+            <Messenger />
             <AppBar />
         </div>
     );
