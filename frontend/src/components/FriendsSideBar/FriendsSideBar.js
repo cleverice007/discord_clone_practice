@@ -2,6 +2,8 @@ import React from "react";
 import AddFriendButton from "./AddFriendButton";
 import FriendsTitle from "./FriendsTitle";
 import FriendsList from "./FriendsList/FriendsList";
+import PendingInvitationsList from './PendingInvitationsList/PendingInvitationList';
+
 
 
 const FriendsSideBar = () => {
@@ -10,6 +12,7 @@ const FriendsSideBar = () => {
       <AddFriendButton />
       <FriendsTitle title="Private Messages" />
       <FriendsList />
+      <PendingInvitationsList />
     </div>
   );
 };
