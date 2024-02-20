@@ -1,28 +1,30 @@
 import React, { useEffect } from 'react';
-import { setUserDetails } from '../slices/authSlice';
-import { useLogoutMutation } from '../slices/userApiSlice';
+import { useDispatch } from 'react-redux'; 
+import { setUserDetails, logout } from '../slices/authSlice'; 
 import SideBar from '../components/Sidebar/SideBar';
 import FriendsSideBar from '../components/FriendsSideBar/FriendsSideBar';
-
+import AppBar from '../components/AppBar/AppBar';
 
 const Dashboard = () => {
-    const [logout] = useLogoutMutation();
-  useEffect(() => {
-    const userDetails = localStorage.getItem("userinfo");
+    const dispatch = useDispatch(); 
 
-    if (!userDetails) {
-      logout();
-    } else {
-      setUserDetails(JSON.parse(userDetails));
-    }
-  }, []);
+    useEffect(() => {
+        const userDetails = localStorage.getItem("userinfo");
 
-  return (
-    <div className="w-full h-screen flex">
-      <SideBar />
-      <FriendsSideBar />
-    </div>
-  );
+        if (!userDetails) {
+            dispatch(logout()); 
+        } else {
+            dispatch(setUserDetails(JSON.parse(userDetails))); 
+        }
+    }, [dispatch]);
+
+    return (
+        <div className="w-full h-screen flex">
+            <SideBar />
+            <FriendsSideBar />
+            <AppBar />
+        </div>
+    );
 };
 
 export default Dashboard;

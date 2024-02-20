@@ -3,6 +3,7 @@ import AddFriendButton from "./AddFriendButton";
 import FriendsTitle from "./FriendsTitle";
 import FriendsList from "./FriendsList/FriendsList";
 import PendingInvitationsList from './PendingInvitationsList/PendingInvitationList';
+import AppBar from "../AppBar/AppBar";
 
 
 
@@ -13,6 +14,7 @@ const FriendsSideBar = () => {
       <FriendsTitle title="Private Messages" />
       <FriendsList />
       <PendingInvitationsList />
+        <AppBar />
     </div>
   );
 };
