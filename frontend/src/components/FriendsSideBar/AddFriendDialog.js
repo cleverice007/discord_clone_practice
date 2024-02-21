@@ -14,7 +14,7 @@ const AddFriendDialog = ({
     // send friend request to server
   };
 
-  const handleCloseDialog = () => {
+  const handleClose = () => {
     closeDialogHandler();
     setMail("");
   };
@@ -26,8 +26,8 @@ const AddFriendDialog = ({
   if (!isDialogOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 overflow-auto bg-smoke-light flex">
-      <div className="relative p-8 bg-white w-full max-w-md m-auto flex-col flex rounded-lg"> 
+    <div className="fixed inset-0 z-50 overflow-auto bg-smoke-light flex" onClick={handleClose}>
+      <div className="relative p-8 bg-white w-full max-w-md m-auto flex-col flex rounded-lg" onClick={(e) => e.stopPropagation()}> 
         <div className="text-lg font-semibold">Invite a Friend</div>
         <div className="mt-4">
           <div className="text-sm">Enter e-mail address of friend which you would like to invite</div>

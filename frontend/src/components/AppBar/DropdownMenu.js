@@ -17,31 +17,33 @@ const DropdownMenu = () => {
     };
 
     return (
-        <div className="relative inline-block text-left">
-            <div>
-                <button
-                    type="button"
-                    onClick={handleMenuToggle}
-                    className="flex items-center justify-center w-10 h-10 bg-gray-200 rounded-full hover:bg-gray-300 focus:outline-none"
-                >
-                    <span className="sr-only">Options</span>
-                </button>
+        <div className="relative">
+          <button
+            onClick={handleMenuToggle}
+            className="p-2 text-white bg-gray-800 rounded-full hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path d="M6 10a2 2 0 110-4 2 2 0 010 4zm0 2a2 2 0 100 4 2 2 0 000-4zm8-2a2 2 0 110-4 2 2 0 010 4zm0 2a2 2 0 100 4 2 2 0 000-4z" />
+            </svg>
+          </button>
+          {isOpen && (
+            <div className="absolute right-0 z-50 mt-2 w-48 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
+              <button
+                onClick={handleLogout}
+                className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              >
+                Logout
+              </button>
             </div>
-            {isOpen && (
-                <div className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                    <div className="py-1">
-                        <button
-                            className="block w-full px-4 py-2 text-sm text-left text-gray-700 hover:bg-gray-100"
-                            onClick={handleLogout}
-                        >
-                            Logout
-                        </button>
-                    </div>
-                </div>
-            )}
+          )}
         </div>
-    );
-};
+      );
+    };
 
 export default DropdownMenu;
 
