@@ -2,17 +2,28 @@ import React, { useState, useEffect } from "react";
 import { validateMail } from "../../utils/validators";
 import InputWithLabel from "../InputWithLabel";
 import PrimaryButton from "../PrimaryButton";
-const AddFriendDialog = ({
-  isDialogOpen,
-  closeDialogHandler,
-  sendFriendInvitation = () => {},
-}) => {
+import { useDispatch } from 'react-redux';
+import {setPendingFriendsInvitations} from '../../slices/friendSlice';
+import {useInviteMutation} from '../../slices/friendApiSlice';
+
+
+const AddFriendDialog = () => {
   const [mail, setMail] = useState("");
   const [isFormValid, setIsFormValid] = useState("");
 
-  const handleSendInvitation = () => {
-    // send friend request to server
+  const dispatch = useDispatch();
+  const [invite] = useInviteMutation();
+
+
+  const handleSendInvitation = async () => {
+    try {
+      const response = await invite({ targetMailAddress: mail }).unwrap();
+      console.log('Invitation sent successfully:', response);
+    } catch (error) {
+      console.error('Failed to send invitation:', error);
+    }
   };
+  
 
   const handleClose = () => {
     closeDialogHandler();
