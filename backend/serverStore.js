@@ -46,11 +46,6 @@ const getOnlineUsers = () => {
   return onlineUsers;
 };
 
-module.exports = {
-  addNewConnectedUser,
-  removeConnectedUser,
-  getActiveConnections,
-  setSocketServerInstance,
-  getSocketServerInstance,
-  getOnlineUsers,
-};
+export
+ { setSocketServerInstance, getSocketServerInstance, addNewConnectedUser, 
+  removeConnectedUser, getActiveConnections, getOnlineUsers };
