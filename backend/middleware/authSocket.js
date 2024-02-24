@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
-import config from "../config";
 
+const config = process.env;
 const verifyTokenSocket = (socket, next) => {
   const token = socket.handshake.auth?.token;
 
@@ -15,4 +15,4 @@ const verifyTokenSocket = (socket, next) => {
   next();
 };
 
-export default verifyTokenSocket;
+export {verifyTokenSocket};

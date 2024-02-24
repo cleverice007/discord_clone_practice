@@ -1,7 +1,7 @@
-import serverStore from '../store/serverStore';
+import { removeConnectedUser } from "../serverStore.js";
 
 const disconnectHandler = (socket) => {
-  serverStore.removeConnectedUser(socket.id);
+  removeConnectedUser(socket.id);
 };
 
-module.exports = disconnectHandler;
+export default disconnectHandler;

@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 
 const friendInvitationSchema = new mongoose.Schema({
@@ -12,4 +12,6 @@ const friendInvitationSchema = new mongoose.Schema({
       },
     });
 
-export default mongoose.model("FriendInvitation", friendInvitationSchema);
+const FriendInvitation = mongoose.model("FriendInvitation", friendInvitationSchema);
+
+export default FriendInvitation;

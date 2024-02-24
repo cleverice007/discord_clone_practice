@@ -1,6 +1,6 @@
 import Joi from "joi";
-import { inviteFriend, acceptFriendInvitation, declineFriendInvitation } from "../controllers/friendInvitation/friendInvitationController";
-import auth from "../middleware/auth.js";
+import { inviteFriend, acceptFriendInvitation, declineFriendInvitation } from "../controllers/friendInvitation/friendInvitationController.js";
+import { verifyToken } from "../middleware/auth.js";
 import { createValidator } from "express-joi-validation"; 
 import express from "express";
 
@@ -16,8 +16,8 @@ const decisionSchema = Joi.object({
 });
 
 
-router.post("/invite", auth, validator.body(inviteFriendSchema), inviteFriend);
-router.post("/accept", auth, validator.body(decisionSchema), acceptFriendInvitation);
-router.post("/decline", auth, validator.body(decisionSchema), declineFriendInvitation);
+router.post("/invite", verifyToken, validator.body(inviteFriendSchema), inviteFriend);
+router.post("/accept", verifyToken, validator.body(decisionSchema), acceptFriendInvitation);
+router.post("/decline", verifyToken, validator.body(decisionSchema), declineFriendInvitation);
 
 export default router;

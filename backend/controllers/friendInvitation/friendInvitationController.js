@@ -1,7 +1,6 @@
-import User from "../models/user";
-import FriendInvitation from "../../models/friendInvitation";
-import friendsUpdates from "../socketHandlers/updates/friends";
-
+import User from '../../models/user.js';
+import FriendInvitation from "../../models/friendInvitation.js";
+import { updateFriendsPendingInvitations, updateFriends } from "../../socketHandlers/updates/friends.js";
 
 const inviteFriend = async (req, res) => {
     const { targetMailAddress } = req.body;
@@ -58,7 +57,7 @@ const inviteFriend = async (req, res) => {
   // if invtiation has been successfully created we would like to update friends invitations if other user is online
 
   // send pending invitations update to specific user
-  friendsUpdates.updateFriendsPendingInvitations(targetUser._id.toString());
+  updateFriendsPendingInvitations(targetUser._id.toString());
 
   return res.status(201).send("Invitation has been sent");
 };
@@ -90,11 +89,11 @@ const acceptFriendInvitation = async (req, res) => {
     await FriendInvitation.findByIdAndDelete(id);
 
     // update list of the friends if the users are online
-    friendsUpdates.updateFriends(senderId.toString());
-    friendsUpdates.updateFriends(receiverId.toString());
+    updateFriends(senderId.toString());
+    updateFriends(receiverId.toString());
 
     // update list of friends pending invitations
-    friendsUpdates.updateFriendsPendingInvitations(receiverId.toString());
+    updateFriendsPendingInvitations(receiverId.toString());
 
     return res.status(200).send("Friend successfuly added");
   } catch (err) {
@@ -116,7 +115,7 @@ const declineFriendInvitation = async (req, res) => {
     }
 
     // update pending invitations
-    friendsUpdates.updateFriendsPendingInvitations(userId);
+    updateFriendsPendingInvitations(userId);
 
     return res.status(200).send("Invitation succesfully rejected");
   } catch (err) {

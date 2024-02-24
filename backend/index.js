@@ -4,7 +4,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import authRoutes from './routes/authRoutes.js';
-import socketServer from './socketServer.js';
+import registerSocketServer from './socketServer.js';
 import friendInvitaionRoutes from './routes/friendInvitationRoutes.js'; 
 
 dotenv.config();
@@ -19,7 +19,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/friend-invitation', friendInvitaionRoutes);
 
 const server = http.createServer(app);
-socketServer.registerSocketServer(server);
+registerSocketServer(server);
 
 mongoose
   .connect(process.env.MONGO_URI)
