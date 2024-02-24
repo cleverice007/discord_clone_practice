@@ -7,7 +7,7 @@ import {setPendingFriendsInvitations} from '../../slices/friendSlice';
 import {useInviteMutation} from '../../slices/friendApiSlice';
 
 
-const AddFriendDialog = () => {
+const AddFriendDialog = ({ isDialogOpen, closeDialogHandler }) => {
   const [mail, setMail] = useState("");
   const [isFormValid, setIsFormValid] = useState("");
 

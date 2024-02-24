@@ -1,11 +1,13 @@
 import io from "socket.io-client";
 import { setPendingFriendsInvitations, setFriends, setOnlineUsers } from '../slices/friendSlice';
+import store from "../store";
 let socket = null;
 
 
 export const connectWithSocketServer = (userDetails) => {
   const jwtToken = userDetails.token;
-
+  const dispatch = store.dispatch;
+  
   socket = io("http://localhost:5002", {
     auth: {
       token: jwtToken,
