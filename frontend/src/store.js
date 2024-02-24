@@ -6,7 +6,7 @@ import friendReducer from './slices/friendSlice';
 const store = configureStore({
   reducer: {
     auth: authReducer,
-    friend: friendReducer,
+    friends: friendReducer,
     [apiSlice.reducerPath]: apiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
