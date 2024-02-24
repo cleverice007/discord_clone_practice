@@ -1,23 +1,29 @@
 import React, { useState } from "react";
 import Avatar from "../../Avatar";
 import InvitationDecisionButton from "./InvitationDecisionButton";
-const PendingInvitationsListItem = ({
-  id,
-  username,
-  mail,
-  acceptFriendInvitation = () => {},
-  rejectFriendInvitation = () => {},
-}) => {
-  const [buttonsDisabled, setButtonsDisabled] = useState(false);
+import { useAcceptMutation, useRejectMutation } from '../../../slices/friendApiSlice';
 
-  const handleAcceptInvitation = () => {
-    acceptFriendInvitation({ id });
-    setButtonsDisabled(true);
+const PendingInvitationsListItem = ({ id, username, mail }) => {
+  const [buttonsDisabled, setButtonsDisabled] = useState(false);
+  const [acceptFriendInvitation] = useAcceptMutation();
+  const [rejectFriendInvitation] = useRejectMutation();
+
+  const handleAcceptInvitation = async () => {
+    try {
+      await acceptFriendInvitation({ id }).unwrap();
+      setButtonsDisabled(true);
+    } catch (err) {
+      console.error('Failed to accept invitation:', err);
+    }
   };
 
-  const handleRejectInvitation = () => {
-    rejectFriendInvitation({ id });
-    setButtonsDisabled(true);
+  const handleRejectInvitation = async () => {
+    try {
+      await rejectFriendInvitation({ id }).unwrap();
+      setButtonsDisabled(true);
+    } catch (err) {
+      console.error('Failed to reject invitation:', err);
+    }
   };
 
   return (
@@ -34,3 +40,4 @@ const PendingInvitationsListItem = ({
 };
 
 export default PendingInvitationsListItem;
+
