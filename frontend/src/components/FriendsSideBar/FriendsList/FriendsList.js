@@ -1,37 +1,31 @@
 import React from "react";
 import FriendsListItem from "./FriendsListItem";
+import { useSelector } from "react-redux";
 
-const DUMMY_FRIENDS = [
-  {
-    id: 1,
-    username: "Mark",
-    isOnline: true,
-  },
-  {
-    id: 2,
-    username: "Anna",
-    isOnline: false,
-  },
-  {
-    id: 3,
-    username: "John",
-    isOnline: false,
-  },
-];
 
-const FriendsList = () => {
-  return (
-    <div className="flex-grow w-full">
-      {DUMMY_FRIENDS.map((friend) => (
-        <FriendsListItem
-          key={friend.id}
-          id={friend.id}
-          username={friend.username}
-          isOnline={friend.isOnline}
-        />
-      ))}
-    </div>
-  );
+const { friends, onlineUsers } = useSelector((state) => state.friends);
+
+const checkOnlineUsers = (friends, onlineUsers) => {
+  return friends.map((f) => {
+    const isUserOnline = onlineUsers.find((user) => user.userId === f.id);
+    return { ...f, isOnline: !!isUserOnline };
+  });
 };
+
+const friendsWithOnlineStatus = checkOnlineUsers(friends, onlineUsers);
+
+return (
+  <div className="flex-grow w-full">
+    {friendsWithOnlineStatus.map((friend) => (
+      <FriendsListItem
+        key={friend.id}
+        id={friend.id}
+        username={friend.username}
+        isOnline={friend.isOnline}
+      />
+    ))}
+  </div>
+);
+
 
 export default FriendsList;
