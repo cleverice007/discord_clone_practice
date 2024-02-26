@@ -20,21 +20,27 @@ const LoginPage = () => {
     const dispatch = useDispatch();
   
     const [login, { isLoading }] = useLoginMutation();
-  
+
     const handleLogin = async () => {
       try {
-        // execute the login mutation
-        const userDetails = await login({ mail, password }).unwrap();
-        // update the user details in the store
-        dispatch(setUserDetails(userDetails));
-        // redirect the user to the protected route
-        navigate("/dashboard");
+        // 執行登錄請求
+        const response = await login({ mail, password }); 
+        const userDetails = response.data.userDetails;
+    
+        if (userDetails) {
+          // 更新 Redux store 中的 userDetails
+          dispatch(setUserDetails(userDetails));
+          console.log('Login successful:', userDetails);
+          console.log(localStorage.getItem('userDetails'));
+          navigate("/dashboard");
+        } else {
+          console.error('Failed to login: Invalid credentials');
+        }
       } catch (error) {
         console.error('Failed to login:', error);
-        // handle the error
       }
     };
-  
+    
     useEffect(() => {
       setIsFormValid(validateLoginForm({ mail, password }));
     }, [mail, password, setIsFormValid]);

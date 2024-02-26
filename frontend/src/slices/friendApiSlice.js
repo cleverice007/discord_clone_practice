@@ -1,5 +1,5 @@
 import { apiSlice } from './apiSlice';
-const FRIENDS_URL = '/api/friend-invitaion';
+const FRIENDS_URL = '/api/friend-invitation';
 
 export const friendApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({

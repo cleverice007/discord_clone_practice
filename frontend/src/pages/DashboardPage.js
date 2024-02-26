@@ -11,7 +11,7 @@ const Dashboard = () => {
     const dispatch = useDispatch(); 
 
     useEffect(() => {
-        const userDetails = localStorage.getItem("userinfo");
+        const userDetails = localStorage.getItem("userDetails");
 
         if (!userDetails) {
             dispatch(logout()); 
