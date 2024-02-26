@@ -1,12 +1,12 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
   mail: { type: String, unique: true },
   username: { type: String },
   password: { type: String },
-  friends: [{ type: Schema.Types.ObjectId, ref: "User" }],
+  friends: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
 });
 
-const User = mongoose.model("user", userSchema);
+const User = mongoose.model("Yser", userSchema);
 
 export default User;
