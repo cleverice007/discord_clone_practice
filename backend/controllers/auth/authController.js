@@ -56,19 +56,11 @@ const register = async (req, res) => {
   
       const user = await User.findOne({ mail: mail.toLowerCase() });
   
-      console.log(user);
-  
       if (user && (await bcrypt.compare(password, user.password))) {
-        // send new token
         const token = jwt.sign(
-          {
-            userId: user._id,
-            mail,
-          },
+          { userId: user._id, mail },
           process.env.TOKEN_KEY,
-          {
-            expiresIn: "24h",
-          }
+          { expiresIn: "24h" }
         );
   
         return res.status(200).json({
@@ -80,10 +72,13 @@ const register = async (req, res) => {
         });
       }
   
-      return res.status(400).send("Invalid credentials. Please try again");
+      console.log('Invalid credentials');
+      return res.status(400).json({ error: "Invalid credentials. Please try again" });
     } catch (err) {
-      return res.status(500).send("Something went wrong. Please try again");
+      console.error('Error during login:', err);
+      return res.status(500).json({ error: "Something went wrong. Please try again" });
     }
   };
+  
 
   export { register, login };

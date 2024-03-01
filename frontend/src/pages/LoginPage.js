@@ -19,27 +19,20 @@ const LoginPage = () => {
     const [isFormValid, setIsFormValid] = useState(false);
     const dispatch = useDispatch();
   
-    const [login, { isLoading }] = useLoginMutation();
+    const [login, { data: userDetails, error, isLoading }] = useLoginMutation();
 
     const handleLogin = async () => {
       try {
-        // 執行登錄請求
-        const response = await login({ mail, password }); 
-        const userDetails = response.data.userDetails;
-    
-        if (userDetails) {
-          // 更新 Redux store 中的 userDetails
-          dispatch(setUserDetails(userDetails));
-          console.log('Login successful:', userDetails);
-          console.log(localStorage.getItem('userDetails'));
-          navigate("/dashboard");
-        } else {
-          console.error('Failed to login: Invalid credentials');
-        }
+        const userDetails = await login({ mail, password }).unwrap();
+        dispatch(setUserDetails(userDetails));
+        console.log('Login successful:', userDetails);
+        navigate("/dashboard");
       } catch (error) {
         console.error('Failed to login:', error);
+        console.error('Error details:', error.data || 'No additional error data');
       }
     };
+    
     
     useEffect(() => {
       setIsFormValid(validateLoginForm({ mail, password }));
