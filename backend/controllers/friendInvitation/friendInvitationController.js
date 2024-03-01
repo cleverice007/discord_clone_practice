@@ -72,7 +72,7 @@ const acceptFriendInvitation = async (req, res) => {
     const invitation = await FriendInvitation.findById(id);
 
     if (!invitation) {
-      return res.status(401).send("Error occured. Please try again");
+      return res.status(401).json({ error: "Error occured. Please try again" });
     }
 
     const { senderId, receiverId } = invitation;
@@ -97,10 +97,10 @@ const acceptFriendInvitation = async (req, res) => {
     // update list of friends pending invitations
     updateFriendsPendingInvitations(receiverId.toString());
 
-    return res.status(200).send("Friend successfuly added");
+    return res.json({ message: "Friend successfully added" });
   } catch (err) {
     console.log(err);
-    return res.status(500).send("Something went wrong. Please try again");
+    return res.status(500).json({ error: "Something went wrong. Please try again" });
   }
 };
 
@@ -119,10 +119,10 @@ const declineFriendInvitation = async (req, res) => {
     // update pending invitations
     updateFriendsPendingInvitations(userId);
 
-    return res.status(200).send("Invitation succesfully rejected");
+    return res.json({ message: "Invitation successfully rejected" });
   } catch (err) {
     console.log(err);
-    return res.status(500).send("Something went wrong please try again");
+    return res.status(500).json({ error: "Something went wrong please try again" });
   }
 };
 
