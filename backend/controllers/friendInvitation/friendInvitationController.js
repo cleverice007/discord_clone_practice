@@ -59,7 +59,9 @@ const inviteFriend = async (req, res) => {
   // send pending invitations update to specific user
   updateFriendsPendingInvitations(targetUser._id.toString());
 
-  return res.status(201).send("Invitation has been sent");
+  return res.status(201).json({
+    message: "Invitation has been sent"
+});
 };
 
 
