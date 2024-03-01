@@ -3,7 +3,6 @@ import { validateMail } from "../../utils/validators";
 import InputWithLabel from "../InputWithLabel";
 import PrimaryButton from "../PrimaryButton";
 import { useDispatch } from 'react-redux';
-import {setPendingFriendsInvitations} from '../../slices/friendSlice';
 import {useInviteMutation} from '../../slices/friendApiSlice';
 
 

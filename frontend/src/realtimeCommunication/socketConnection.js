@@ -13,8 +13,6 @@ export const connectWithSocketServer = (userDetails) => {
       auth: {
           token: jwtToken,
       },
-      // 新增下面这行以更详细地跟踪连接错误
-      transports: ['websocket'], // 强制使用Websocket进行连接
   });
 
   socket.on("connect_error", (error) => {
