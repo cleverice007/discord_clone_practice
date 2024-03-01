@@ -19,13 +19,12 @@ const LoginPage = () => {
     const [isFormValid, setIsFormValid] = useState(false);
     const dispatch = useDispatch();
   
-    const [login, { data: userDetails, error, isLoading }] = useLoginMutation();
+    const [login, { data, error, isLoading }] = useLoginMutation();
 
     const handleLogin = async () => {
       try {
-        const userDetails = await login({ mail, password }).unwrap();
-        dispatch(setUserDetails(userDetails));
-        console.log('Login successful:', userDetails);
+        const response = await login({ mail, password }).unwrap();
+        dispatch(setUserDetails(response.userDetails));
         navigate("/dashboard");
       } catch (error) {
         console.error('Failed to login:', error);

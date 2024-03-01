@@ -7,16 +7,23 @@ let socket = null;
 export const connectWithSocketServer = (userDetails) => {
   const jwtToken = userDetails.token;
   const dispatch = store.dispatch;
-  
+
+
   socket = io("http://localhost:5002", {
-    auth: {
-      token: jwtToken,
-    },
+      auth: {
+          token: jwtToken,
+      },
+      // 新增下面这行以更详细地跟踪连接错误
+      transports: ['websocket'], // 强制使用Websocket进行连接
+  });
+
+  socket.on("connect_error", (error) => {
+      console.error("Connection Error:", error); // 新增
   });
 
   socket.on("connect", () => {
-    console.log("succesfully connected with socket.io server");
-    console.log(socket.id);
+      console.log("Successfully connected with socket.io server");
+      console.log("Socket ID:", socket.id);
   });
 
   socket.on("friends-invitations", (data) => {

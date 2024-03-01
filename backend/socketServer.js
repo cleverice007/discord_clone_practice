@@ -12,12 +12,14 @@ const registerSocketServer = (server) => {
     },
   });
 
- setSocketServerInstance(io);
+  console.log('Socket.IO server has been set up.');
+
+  setSocketServerInstance(io);
 
   io.use((socket, next) => {
+    console.log('Verifying token for socket:', socket.id); // Log the socket id being verified
     verifyTokenSocket(socket, next);
   });
-
   const emitOnlineUsers = () => {
     const onlineUsers = getOnlineUsers();
     io.emit("online-users", { onlineUsers });

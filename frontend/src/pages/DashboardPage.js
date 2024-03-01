@@ -6,21 +6,26 @@ import FriendsSideBar from '../components/FriendsSideBar/FriendsSideBar';
 import AppBar from '../components/AppBar/AppBar';
 import Messenger from '../components/Messenger/Messenger';
 import { connectWithSocketServer } from '../realtimeCommunication/socketConnection';
+import { useSelector } from 'react-redux';
+
 
 const Dashboard = () => {
     const dispatch = useDispatch(); 
+    const userDetails = useSelector((state) => state.auth.userDetails);
+    if (userDetails) {
+      console.log('Token:', userDetails.token);
+    } else {
+      console.log('userDetails is undefined or null');
+    }
+    
 
     useEffect(() => {
-        const userDetails = localStorage.getItem("userDetails");
-
-        if (!userDetails) {
-            dispatch(logout()); 
+        if (userDetails) {
+            connectWithSocketServer(userDetails);
         } else {
-            dispatch(setUserDetails(JSON.parse(userDetails))); 
-            connectWithSocketServer(JSON.parse(userDetails));
+            dispatch(logout());
         }
-    }, [dispatch]);
-
+    }, [userDetails, dispatch]);
     return (
         <div className="w-full h-screen flex">
             <SideBar />

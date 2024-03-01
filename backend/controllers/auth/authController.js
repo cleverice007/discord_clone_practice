@@ -38,12 +38,10 @@ const register = async (req, res) => {
         }
       );
   
-      res.status(201).json({
-        userDetails: {
-          mail: user.mail,
-          token: token,
-          username: user.username,
-        },
+      return res.status(200).json({
+        mail: user.mail,
+        token: token,
+        username: user.username,
       });
     } catch (err) {
       return res.status(500).send("Error occured. Please try again");
