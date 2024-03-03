@@ -16,7 +16,7 @@ export const connectWithSocketServer = (userDetails) => {
   });
 
   socket.on("connect_error", (error) => {
-      console.error("Connection Error:", error); // 新增
+      console.error("Connection Error:", error); 
   });
 
   socket.on("connect", () => {
@@ -44,4 +44,8 @@ export const connectWithSocketServer = (userDetails) => {
 export const sendDirectMessage = (data) => {
   console.log(data);
   socket.emit("direct-message", data);
+};
+
+export const getDirectChatHistory = (data) => {
+  socket.emit("direct-chat-history", data);
 };
