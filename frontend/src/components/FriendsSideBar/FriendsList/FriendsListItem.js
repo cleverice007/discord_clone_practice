@@ -2,6 +2,8 @@ import React from "react";
 import Avatar from '../../Avatar';
 import OnlineIndicator from "./OnlineIndicator";
 import { useDispatch } from "react-redux";
+import { setChosenChatDetails, chatTypes } from '../../../slices/chatSlice';
+
 
 const FriendsListItem = ({ id, username, isOnline }) => {
   const dispatch = useDispatch();
@@ -12,7 +14,7 @@ const FriendsListItem = ({ id, username, isOnline }) => {
       chatType: chatTypes.DIRECT, 
     };
 
-    dispatch(chatSlice.actions.setChosenChatDetails(payload));
+    dispatch(setChosenChatDetails(payload));
   };
 
   return (
