@@ -1,5 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+export const chatTypes = {
+  DIRECT: "DIRECT",
+  GROUP: "GROUP",
+};
+
+
 const initialState = {
     chosenChatDetails: null,
     chatType: null,

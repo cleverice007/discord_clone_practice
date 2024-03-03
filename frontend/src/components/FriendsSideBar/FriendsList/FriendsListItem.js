@@ -1,10 +1,23 @@
 import React from "react";
 import Avatar from '../../Avatar';
 import OnlineIndicator from "./OnlineIndicator";
+import { useDispatch } from "react-redux";
 
 const FriendsListItem = ({ id, username, isOnline }) => {
+  const dispatch = useDispatch();
+
+  const handleChooseActiveConversation = () => {
+    const payload = {
+      chatDetails: { id, name: username },
+      chatType: chatTypes.DIRECT, 
+    };
+
+    dispatch(chatSlice.actions.setChosenChatDetails(payload));
+  };
+
   return (
     <button
+      onClick={handleChooseActiveConversation}
       className="w-full h-10 mt-2.5 flex items-center justify-start text-left text-black relative"
     >
       <Avatar username={username} />
