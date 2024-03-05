@@ -1,7 +1,7 @@
 import React from "react";
-import MessagesHeader from "./MessagesHeader";
+import MessageHeader from "./MessageHeader.js";
 import Message from "./Message";
-import DateSeparator from "./DateSeparator";
+import DateSeparator from "./DateSeparator.js";
 import { useSelector } from "react-redux";
 
 const convertDateToHumanReadable = (date, format) => {
@@ -20,7 +20,7 @@ const Messages = () => {
   const messages = useSelector((state) => state.chat.messages); 
   return (
     <div className="h-[calc(100%-60px)] overflow-auto flex flex-col items-center">
-      <MessagesHeader name={chosenChatDetails?.name} />
+      <MessageHeader name={chosenChatDetails?.name} />
       {messages.map((message, index) => {
         const sameAuthor =
           index > 0 && messages[index].author._id === messages[index - 1].author._id;

@@ -1,5 +1,5 @@
 import React from "react";
-import Avatar from "../../../shared/components/Avatar";
+import Avatar from "../../Avatar";
 
 const Message = ({ content, sameAuthor, username, date, sameDay }) => {
   if (sameAuthor && sameDay) {
