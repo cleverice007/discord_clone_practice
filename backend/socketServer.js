@@ -40,6 +40,10 @@ const registerSocketServer = (server) => {
     directChatHistoryHandler(socket, data);
   });
 
+  socket.on("direct-message", (data) => {
+    directMessageHandler(socket, data);
+  });
+
   setInterval(() => {
     emitOnlineUsers();
   }, [1000 * 8]);
