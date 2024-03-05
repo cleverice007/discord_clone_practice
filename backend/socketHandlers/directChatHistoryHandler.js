@@ -1,4 +1,4 @@
-import Conversation from '../models/conversation'
+import Conversation from "../models/Conversation";
 import { updateChatHistory } from "./updates/chat";
 
 

@@ -3,6 +3,8 @@ import newConnectionHandler from "./socketHandlers/newConnectionHandler.js";
 import disconnectHandler from "./socketHandlers/disconnectHandler.js";
 import { setSocketServerInstance,getOnlineUsers } from "./serverStore.js";
 import { Server } from "socket.io";
+import directChatHistoryHandler from "./socketHandlers/directChatHistoryHandler.js";
+import directMessageHandler from "./socketHandlers/directMessageHandler.js";
 
 const registerSocketServer = (server) => {
   const io = new Server(server, {
