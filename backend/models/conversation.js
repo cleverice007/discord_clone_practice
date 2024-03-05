@@ -1,8 +1,6 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-const Schema = mongoose.Schema;
-
-const conversationSchema = new Schema({
+const conversationSchema = new mongoose.Schema({
   participants: [
     {
         type: mongoose.Schema.Types.ObjectId,
@@ -17,5 +15,5 @@ const conversationSchema = new Schema({
   ],
 });
 
-const Conversation = mongoose.model("Conversation", conversationSchema);
+const Conversation = mongoose.models.Conversation || mongoose.model("Conversation", conversationSchema);
 export default Conversation;

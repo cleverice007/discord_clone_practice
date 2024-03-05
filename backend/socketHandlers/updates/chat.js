@@ -1,5 +1,5 @@
-import Conversation from '../../../models/Conversation';
-import getActiveConnections from '../../../serverStore';
+import { getActiveConnections } from '../../serverStore.js';
+import Conversation from '../../models/conversation.js';
 
 
 const updateChatHistory = async (

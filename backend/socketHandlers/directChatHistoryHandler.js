@@ -1,5 +1,5 @@
-import Conversation from "../models/Conversation";
-import { updateChatHistory } from "./updates/chat";
+import Conversation from "../models/conversation.js";
+import { updateChatHistory } from "./updates/chat.js";
 
 
 const directChatHistoryHandler = async (socket, data) => {

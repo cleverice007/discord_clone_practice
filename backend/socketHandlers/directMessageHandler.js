@@ -1,6 +1,6 @@
-import Message from "../models/Message";
-import Conversation from "../models/Conversation";
-import { updateChatHistory } from "./updates/chat";
+import Message from "../models/Message.js";
+import Conversation from "../models/Conversation.js";
+import { updateChatHistory } from "./updates/chat.js";
 
 
 const directMessageHandler = async (socket, data) => {
