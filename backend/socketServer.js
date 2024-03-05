@@ -36,6 +36,9 @@ const registerSocketServer = (server) => {
       disconnectHandler(socket);
     });
   });
+  socket.on("direct-chat-history", (data) => {
+    directChatHistoryHandler(socket, data);
+  });
 
   setInterval(() => {
     emitOnlineUsers();
