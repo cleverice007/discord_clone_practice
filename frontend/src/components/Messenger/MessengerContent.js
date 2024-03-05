@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import NewMessageInput from "./NewMessageInput";
+import Messages from "./Messages/Messages";
 import { getDirectChatHistory } from "../../realtimeCommunication/socketConnection";
 
 const MessengerContent = ({ chosenChatDetails }) => {
@@ -11,6 +12,7 @@ const MessengerContent = ({ chosenChatDetails }) => {
 
   return (
     <div className="flex-grow">
+      <Messages />
       <NewMessageInput />
     </div>
   );
