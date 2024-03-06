@@ -1,4 +1,4 @@
-import { getActiveConnections } from '../../serverStore.js';
+import { getActiveConnections,getSocketServerInstance } from '../../serverStore.js';
 import Conversation from '../../models/conversation.js';
 
 
@@ -17,7 +17,7 @@ const updateChatHistory = async (
     });
   
     if (conversation) {
-      const io = serverStore.getSocketServerInstance();
+      const io = getSocketServerInstance();
   
       if (toSpecifiedSocketId) {
         // initial update of chat history
