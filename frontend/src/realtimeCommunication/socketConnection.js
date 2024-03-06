@@ -1,6 +1,7 @@
 import io from "socket.io-client";
 import { setPendingFriendsInvitations, setFriends, setOnlineUsers } from '../slices/friendSlice';
 import store from "../store";
+import { updateDirectChatHistoryIfActive } from '../utils/chat';
 let socket = null;
 
 
@@ -38,7 +39,10 @@ export const connectWithSocketServer = (userDetails) => {
     const { onlineUsers } = data;
     dispatch(setOnlineUsers(onlineUsers));
   });
-
+  socket.on("direct-chat-history", (data) => {
+    console.log(data);
+    updateDirectChatHistoryIfActive(data);
+  });
 };
 
 export const sendDirectMessage = (data) => {
