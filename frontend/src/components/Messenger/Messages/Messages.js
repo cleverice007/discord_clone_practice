@@ -19,7 +19,7 @@ const Messages = () => {
   const chosenChatDetails = useSelector((state) => state.chat.chosenChatDetails);
   const messages = useSelector((state) => state.chat.messages); 
   return (
-    <div className="h-[calc(100%-60px)] overflow-auto flex flex-col items-center">
+    <div className="h-[calc(100%-60px)] overflow-auto flex flex-col items-start">
       <MessageHeader name={chosenChatDetails?.name} />
       {messages.map((message, index) => {
         const sameAuthor =
