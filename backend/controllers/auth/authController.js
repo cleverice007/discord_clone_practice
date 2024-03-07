@@ -42,6 +42,7 @@ const register = async (req, res) => {
         mail: user.mail,
         token: token,
         username: user.username,
+        id: user._id,
       });
     } catch (err) {
       return res.status(500).send("Error occured. Please try again");
@@ -66,6 +67,7 @@ const register = async (req, res) => {
             mail: user.mail,
             token: token,
             username: user.username,
+            id: user._id,
           },
         });
       }

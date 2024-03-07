@@ -40,7 +40,6 @@ export const connectWithSocketServer = (userDetails) => {
     dispatch(setOnlineUsers(onlineUsers));
   });
   socket.on("direct-chat-history", (data) => {
-    console.log(data);
     updateDirectChatHistoryIfActive(data);
   });
 };

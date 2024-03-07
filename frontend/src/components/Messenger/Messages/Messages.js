@@ -18,7 +18,6 @@ const convertDateToHumanReadable = (date, format) => {
 const Messages = () => {
   const chosenChatDetails = useSelector((state) => state.chat.chosenChatDetails);
   const messages = useSelector((state) => state.chat.messages); 
-  console.log(messages);
   return (
     <div className="h-[calc(100%-60px)] overflow-auto flex flex-col items-center">
       <MessageHeader name={chosenChatDetails?.name} />

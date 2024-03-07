@@ -24,6 +24,7 @@ const initialState = {
       },
       setMessages: (state, action) => {
         state.messages = action.payload;
+        console.log("Updating messages in Redux store", action.payload); 
       },
     },
   });

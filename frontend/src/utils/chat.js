@@ -3,34 +3,43 @@ import { setMessages } from '../slices/chatSlice';
 
 const updateChatHistoryIfSameConversationActive = ({
   participants,
-  usersInConversation, 
+  usersInConversation,
   messages,
 }) => {
-  const result = participants.every(participantId => {
-    return usersInConversation.includes(participantId);
-  });
+
+  
+  const result = participants.every(participantId =>
+    usersInConversation.includes(participantId)
+  );
 
   if (result) {
     store.dispatch(setMessages(messages));
+  } else {
+    console.log("No update to Redux store as conversation participants do not match");
   }
 };
 
 const updateDirectChatHistoryIfActive = (data) => {
-    const { participants, messages } = data;
-  
-    // find id of user from token and id from active conversation
-    const receiverId = store.getState().chat.chosenChatDetails?.id;
-    const userId = store.getState().auth.userDetails._id;
-  
-    if (receiverId && userId) {
-      const usersInCoversation = [receiverId, userId];
-  
-      updateChatHistoryIfSameConversationActive({
-        participants,
-        usersInCoversation,
-        messages,
-      });
-    }
-  };
+  const { participants, messages } = data;
+
+  const chatState = store.getState().chat;
+  const authState = store.getState().auth;
+
+  console.log(authState.userDetails);
+
+  const receiverId = chatState.chosenChatDetails.id;
+  const userId = authState.userDetails.id;
+
+  const usersInConversation = [receiverId, userId];
+  console.log("Updating chat history for users:", usersInConversation);
+
+  updateChatHistoryIfSameConversationActive({
+    participants,
+    usersInConversation,
+    messages,
+  });
+};
+
+
 
   export { updateDirectChatHistoryIfActive}
