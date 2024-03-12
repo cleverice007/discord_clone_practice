@@ -42,6 +42,9 @@ export const connectWithSocketServer = (userDetails) => {
   socket.on("direct-chat-history", (data) => {
     updateDirectChatHistoryIfActive(data);
   });
+  socket.on("room-create", (data) => {
+    newRoomCreated(data);
+  });
 };
 
 export const sendDirectMessage = (data) => {

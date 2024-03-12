@@ -1,5 +1,5 @@
 
-import { getSocketServerInstance, getActiveRooms } from "../../serverStore";
+import { getSocketServerInstance, getActiveRooms } from "../../serverStore.js";
 
 const updateRooms = (toSpecifiedSocketId = null) => {
     const io = getSocketServerInstance();
