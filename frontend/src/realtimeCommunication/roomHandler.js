@@ -1,4 +1,5 @@
 import { setOpenRoom, setIsUserJoinedOnlyWithAudio } from "../slices/roomSlice";
+import { createNewRoom } from "./socketConnection";
 
 
 const createNewRoom = () => {
