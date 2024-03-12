@@ -1,7 +1,9 @@
 import React from "react";
+import { createNewRoom } from "../../realtimeCommunication/roomHandler";
 
 const CreateRoomButton = ({ isUserInRoom }) => {
   const createNewRoomHandler = () => {
+    createNewRoom();
   };
 
   return (

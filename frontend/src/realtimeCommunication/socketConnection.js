@@ -52,3 +52,7 @@ export const sendDirectMessage = (data) => {
 export const getDirectChatHistory = (data) => {
   socket.emit("direct-chat-history", data);
 };
+
+export const createNewRoom = () => {
+  socket.emit("room-create");
+};
