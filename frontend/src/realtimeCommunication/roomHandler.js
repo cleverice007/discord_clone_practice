@@ -1,6 +1,7 @@
 import { setOpenRoom, setIsUserJoinedOnlyWithAudio } from "../slices/roomSlice";
-import { createNewRoom } from "./socketConnection";
-
+import { createNewRoom as createNewRoomSocket } from "./socketConnection";
+import store from "../store";
+import {getLocalStreamPreview} from "./webRTCHandler";
 
 const createNewRoom = () => {
     const successCalbackFunc = () => {
@@ -8,11 +9,10 @@ const createNewRoom = () => {
   
       const audioOnly = store.getState().room.audioOnly;
       store.dispatch(setIsUserJoinedOnlyWithAudio(audioOnly));
-      socketConnection.createNewRoom();
-    };
+      createNewRoomSocket();    };
   
     const audioOnly = store.getState().room.audioOnly;
-    webRTCHandler.getLocalStreamPreview(audioOnly, successCalbackFunc);
+    getLocalStreamPreview(audioOnly, successCalbackFunc);
   };
 
 
