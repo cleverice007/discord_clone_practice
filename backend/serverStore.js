@@ -1,6 +1,8 @@
 const connectedUsers = new Map();
 
 let io = null;
+let activeRooms = [];
+
 
 const setSocketServerInstance = (ioInstance) => {
   io = ioInstance;
@@ -46,6 +48,30 @@ const getOnlineUsers = () => {
   return onlineUsers;
 };
 
+const addNewActiveRoom = (userId, socketId) => {
+  const newActiveRoom = {
+    roomCreator: {
+      userId,
+      socketId,
+    },
+    participants: [
+      {
+        userId,
+        socketId,
+      },
+    ],
+    roomId: Math.random().toString(36).substring(7),
+  };
+
+  activeRooms = [...activeRooms, newActiveRoom];
+
+  console.log("new active rooms: ");
+  console.log(activeRooms);
+
+  return newActiveRoom;
+};
+
+
 export
  { setSocketServerInstance, getSocketServerInstance, addNewConnectedUser, 
-  removeConnectedUser, getActiveConnections, getOnlineUsers };
+  removeConnectedUser, getActiveConnections, getOnlineUsers, addNewActiveRoom};

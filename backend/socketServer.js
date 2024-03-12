@@ -1,10 +1,11 @@
 import { verifyTokenSocket } from "./middleware/authSocket.js";
 import newConnectionHandler from "./socketHandlers/newConnectionHandler.js";
 import disconnectHandler from "./socketHandlers/disconnectHandler.js";
-import { setSocketServerInstance,getOnlineUsers } from "./serverStore.js";
+import { setSocketServerInstance, getOnlineUsers } from "./serverStore.js";
 import { Server } from "socket.io";
-import {directChatHistoryHandler} from "./socketHandlers/directChatHistoryHandler.js";
-import {directMessageHandler} from "./socketHandlers/directMessageHandler.js";
+import { directChatHistoryHandler } from "./socketHandlers/directChatHistoryHandler.js";
+import { directMessageHandler } from "./socketHandlers/directMessageHandler.js";
+import {roomCreateHandler} from "./socketHandlers/roomCreateHandler.js";
 
 const registerSocketServer = (server) => {
   const io = new Server(server, {
@@ -47,6 +48,10 @@ const registerSocketServer = (server) => {
     socket.on("disconnect", () => {
       disconnectHandler(socket);
     });
+    socket.on("room-create", () => {
+      roomCreateHandler(socket);
+    });
+
   });
 
   setInterval(() => {
