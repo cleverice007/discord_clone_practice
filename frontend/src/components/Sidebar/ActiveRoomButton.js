@@ -1,5 +1,6 @@
 import React from 'react';
 import Avatar from '../Avatar';
+import { joinRoom } from '../../realtimeCommunication/roomHandler';
 
 const ActiveRoomButton = ({
   creatorUsername,
@@ -8,7 +9,9 @@ const ActiveRoomButton = ({
   isUserInRoom,
 }) => {
   const handleJoinActiveRoom = () => {
-   
+    if (amountOfParticipants < 4) {
+      joinRoom(roomId);
+    }
   };
 
   const activeRoomButtonDisabled = amountOfParticipants > 3;
