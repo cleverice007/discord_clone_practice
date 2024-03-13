@@ -2,6 +2,8 @@ import io from "socket.io-client";
 import { setPendingFriendsInvitations, setFriends, setOnlineUsers } from '../slices/friendSlice';
 import store from "../store";
 import { updateDirectChatHistoryIfActive } from '../utils/chat';
+import { newRoomCreated } from './roomHandler';
+
 let socket = null;
 
 
