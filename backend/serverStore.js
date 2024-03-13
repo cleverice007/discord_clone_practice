@@ -75,7 +75,23 @@ const getActiveRooms = () => {
   return [...activeRooms];
 };
 
+const joinActiveRoom = (roomId, newParticipant) => {
+  const room = activeRooms.find((room) => room.roomId === roomId);
+  console.log("room has been found");
+
+  activeRooms = activeRooms.filter((room) => room.roomId !== roomId);
+  console.log(activeRooms);
+
+  const updatedRoom = {
+    ...room,
+    participants: [...room.participants, newParticipant],
+  };
+
+  activeRooms.push(updatedRoom);
+};
+
 
 export
  { setSocketServerInstance, getSocketServerInstance, addNewConnectedUser, 
-  removeConnectedUser, getActiveConnections, getOnlineUsers, addNewActiveRoom, getActiveRooms};
+  removeConnectedUser, getActiveConnections, getOnlineUsers, addNewActiveRoom, getActiveRooms
+, joinActiveRoom};
