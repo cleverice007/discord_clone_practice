@@ -1,5 +1,5 @@
 import store from "../store";
-import { setLocalStream } from "../slices/roomSlice";
+import { setLocalStream,setRemoteStreams } from "../slices/roomSlice";
 
 
 const getConfiguration = () => {
@@ -43,4 +43,13 @@ export const getLocalStreamPreview = (onlyAudio = false, callbackFunc) => {
         console.log(err);
         console.log("Cannot get an access to local stream");
       });
+  };
+
+
+
+  const addNewRemoteStream = (remoteStream) => {
+    const remoteStreams = store.getState().room.remoteStreams;
+    const newRemoteStreams = [...remoteStreams, remoteStream];
+  
+    store.dispatch(setRemoteStreams(newRemoteStreams));
   };
