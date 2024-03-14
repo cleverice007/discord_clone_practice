@@ -1,4 +1,5 @@
 import store from "../store";
+import Peer from "simple-peer";
 import { setLocalStream,setRemoteStreams } from "../slices/roomSlice";
 
 
@@ -44,6 +45,41 @@ export const getLocalStreamPreview = (onlyAudio = false, callbackFunc) => {
         console.log("Cannot get an access to local stream");
       });
   };
+
+  let peers = {};
+
+export const prepareNewPeerConnection = (connUserSocketId, isInitiator) => {
+  const localStream = store.getState().room.localStream;
+
+  if (isInitiator) {
+    console.log("preparing new peer connection as initiator");
+  } else {
+    console.log("preparing new peer connection as not initiator");
+  }
+
+  peers[connUserSocketId] = new Peer({
+    initiator: isInitiator,
+    config: getConfiguration(),
+    stream: localStream,
+  });
+
+  peers[connUserSocketId].on("signal", (data) => {
+    const signalData = {
+      signal: data,
+      connUserSocketId: connUserSocketId,
+    };
+
+    signalPeerData(signalData);
+  });
+
+  peers[connUserSocketId].on("stream", (remoteStream) => {
+    // add new remote stream to server store
+    console.log("remote stream came from other user");
+    console.log("direct connection has been established");
+    remoteStream.connUserSocketId = connUserSocketId;
+    addNewRemoteStream(remoteStream);
+  });
+};
 
 
 
