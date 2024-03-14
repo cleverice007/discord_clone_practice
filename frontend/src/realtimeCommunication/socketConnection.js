@@ -47,6 +47,20 @@ export const connectWithSocketServer = (userDetails) => {
   socket.on("room-create", (data) => {
     newRoomCreated(data);
   });
+  socket.on("conn-prepare", (data) => {
+    const { connUserSocketId } = data;
+    prepareNewPeerConnection(connUserSocketId, false);
+    socket.emit("conn-init", { connUserSocketId: connUserSocketId });
+  });
+
+  socket.on("conn-init", (data) => {
+    const { connUserSocketId } = data;
+  prepareNewPeerConnection(connUserSocketId, true);
+  });
+
+  socket.on("conn-signal", (data) => {
+    handleSignalingData(data);
+  });
 };
 
 export const sendDirectMessage = (data) => {
