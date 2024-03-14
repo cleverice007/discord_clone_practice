@@ -8,7 +8,7 @@ import ActiveRoomButton from "./ActiveRoomButton";
 const SideBar = () => {
   const isUserInRoom = useSelector((state) => state.room.isUserInRoom);
   const activeRooms = useSelector((state) => state.room.activeRooms);
-
+ console.log(activeRooms);
   
   return (
     <div className="w-18 h-full flex flex-col items-center bg-[#202225]">
