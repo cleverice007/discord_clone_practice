@@ -65,3 +65,7 @@ export const createNewRoom = () => {
 export const joinRoom = (data) => {
   socket.emit("room-join", data);
 };
+
+export const signalPeerData = (data) => {
+  socket.emit("conn-signal", data);
+};
