@@ -2,6 +2,23 @@ import store from "../store";
 import { setLocalStream } from "../slices/roomSlice";
 
 
+const getConfiguration = () => {
+  const turnIceServers = null;
+
+  if (turnIceServers) {
+  } else {
+    console.warn("Using only STUN server");
+    return {
+      iceServers: [
+        {
+          urls: "stun:stun.l.google.com:19302",
+        },
+      ],
+    };
+  }
+};
+
+
 const onlyAudioConstraints = {
     audio: true,
     video: false,
