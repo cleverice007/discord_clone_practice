@@ -91,3 +91,11 @@ export const prepareNewPeerConnection = (connUserSocketId, isInitiator) => {
   
     store.dispatch(setRemoteStreams(newRemoteStreams));
   };
+
+  export const handleSignalingData = (data) => {
+    const { connUserSocketId, signal } = data;
+  
+    if (peers[connUserSocketId]) {
+      peers[connUserSocketId].signal(signal);
+    }
+  };
