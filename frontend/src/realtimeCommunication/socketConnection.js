@@ -3,6 +3,7 @@ import { setPendingFriendsInvitations, setFriends, setOnlineUsers } from '../sli
 import store from "../store";
 import { updateDirectChatHistoryIfActive } from '../utils/chat';
 import { newRoomCreated } from './roomHandler';
+import { prepareNewPeerConnection, handleSignalingData } from './webRTCHandler';
 
 let socket = null;
 
