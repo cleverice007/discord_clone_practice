@@ -1,4 +1,4 @@
-import { setOpenRoom, setIsUserJoinedOnlyWithAudio,setRoomDetails } from "../slices/roomSlice";
+import { setOpenRoom, setIsUserJoinedOnlyWithAudio,setRoomDetails,setActiveRooms } from "../slices/roomSlice";
 import { createNewRoom as createNewRoomSocket, joinRoom as joinRoomSocket } from "./socketConnection.js";
 import store from "../store";
 import {getLocalStreamPreview} from "./webRTCHandler.js";
@@ -34,7 +34,7 @@ const createNewRoom = () => {
   };
   
 
-  export const updateActiveRooms = (data) => {
+ const updateActiveRooms = (data) => {
     const { activeRooms } = data;
   
     const friends = store.getState().friends.friends;
