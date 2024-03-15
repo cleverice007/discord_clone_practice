@@ -2,7 +2,7 @@ import io from "socket.io-client";
 import { setPendingFriendsInvitations, setFriends, setOnlineUsers } from '../slices/friendSlice';
 import store from "../store";
 import { updateDirectChatHistoryIfActive } from '../utils/chat';
-import { newRoomCreated } from './roomHandler';
+import { newRoomCreated, updateActiveRooms } from './roomHandler';
 import { prepareNewPeerConnection, handleSignalingData } from './webRTCHandler';
 
 let socket = null;
@@ -48,6 +48,12 @@ export const connectWithSocketServer = (userDetails) => {
   socket.on("room-create", (data) => {
     newRoomCreated(data);
   });
+
+  socket.on("active-rooms", (data) => {
+    updateActiveRooms(data);
+  });
+
+
   socket.on("conn-prepare", (data) => {
     const { connUserSocketId } = data;
     prepareNewPeerConnection(connUserSocketId, false);
