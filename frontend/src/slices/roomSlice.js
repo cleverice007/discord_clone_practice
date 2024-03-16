@@ -27,6 +27,7 @@ const initialState = {
       setActiveRooms(state, action) {
         state.activeRooms = action.payload.activeRooms;
       },
+      
       setLocalStream(state, action) {
         state.localStream = action.payload.localStream;
       },

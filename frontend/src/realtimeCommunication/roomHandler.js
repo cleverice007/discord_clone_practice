@@ -36,11 +36,10 @@ const createNewRoom = () => {
 
  const updateActiveRooms = (data) => {
     const { activeRooms } = data;
-  
+    console.log('activeRooms',activeRooms)
     const friends = store.getState().friends.friends;
     const rooms = [];
-  
-    const userId = store.getState().auth.userDetails?._id;
+    const userId = store.getState().auth.userDetails?.id;
   
     activeRooms.forEach((room) => {
       const isRoomCreatedByMe = room.roomCreator.userId === userId;
@@ -56,7 +55,7 @@ const createNewRoom = () => {
       }
     });
   
-    store.dispatch(setActiveRooms(rooms));
+    store.dispatch(setActiveRooms({activeRooms: rooms}));
   };
 
   export { createNewRoom, newRoomCreated, joinRoom,updateActiveRooms}
