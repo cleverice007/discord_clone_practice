@@ -1,5 +1,6 @@
 import { joinActiveRoom } from "../serverStore.js";
 import { updateRooms } from "./updates/room.js";
+import { getActiveRoom } from "../serverStore.js";
 
 
 const roomJoinHandler = (socket, data) => {

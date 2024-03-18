@@ -75,6 +75,21 @@ const getActiveRooms = () => {
   return [...activeRooms];
 };
 
+
+const getActiveRoom = (roomId) => {
+  const activeRoom = activeRooms.find(
+    (activeRoom) => activeRoom.roomId === roomId
+  );
+
+  if (activeRoom) {
+    return {
+      ...activeRoom,
+    };
+  } else {
+    return null;
+  }
+};
+
 const joinActiveRoom = (roomId, newParticipant) => {
   const room = activeRooms.find((room) => room.roomId === roomId);
   console.log("room has been found");
@@ -94,4 +109,4 @@ const joinActiveRoom = (roomId, newParticipant) => {
 export
  { setSocketServerInstance, getSocketServerInstance, addNewConnectedUser, 
   removeConnectedUser, getActiveConnections, getOnlineUsers, addNewActiveRoom, getActiveRooms
-, joinActiveRoom};
+,getActiveRoom, joinActiveRoom};
