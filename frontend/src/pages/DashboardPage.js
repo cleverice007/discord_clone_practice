@@ -8,7 +8,6 @@ import Room from '../components/Room/Room';
 import Messenger from '../components/Messenger/Messenger';
 import { connectWithSocketServer } from '../realtimeCommunication/socketConnection';
 import { useSelector } from 'react-redux';
-impor
 
 
 const Dashboard = () => {
@@ -20,7 +19,6 @@ const Dashboard = () => {
     } else {
         console.log('userDetails is undefined or null');
     }
-    con
 
 
     useEffect(() => {
