@@ -1,23 +1,27 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux'; 
-import { setUserDetails, logout } from '../slices/authSlice'; 
+import { useDispatch } from 'react-redux';
+import { setUserDetails, logout } from '../slices/authSlice';
 import SideBar from '../components/Sidebar/SideBar';
 import FriendsSideBar from '../components/FriendsSideBar/FriendsSideBar';
 import AppBar from '../components/AppBar/AppBar';
+import Room from '../components/Room/Room';
 import Messenger from '../components/Messenger/Messenger';
 import { connectWithSocketServer } from '../realtimeCommunication/socketConnection';
 import { useSelector } from 'react-redux';
+impor
 
 
 const Dashboard = () => {
-    const dispatch = useDispatch(); 
+    const dispatch = useDispatch();
     const userDetails = useSelector((state) => state.auth.userDetails);
+    const isUserInRoom = useSelector((state) => state.room.isUserInRoom);
     if (userDetails) {
-      console.log('Token:', userDetails.token);
+        console.log('Token:', userDetails.token);
     } else {
-      console.log('userDetails is undefined or null');
+        console.log('userDetails is undefined or null');
     }
-    
+    con
+
 
     useEffect(() => {
         if (userDetails) {
@@ -32,6 +36,7 @@ const Dashboard = () => {
             <FriendsSideBar />
             <Messenger />
             <AppBar />
+            {isUserInRoom && <Room />}
         </div>
     );
 };
