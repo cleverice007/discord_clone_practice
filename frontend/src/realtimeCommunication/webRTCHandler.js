@@ -1,6 +1,6 @@
 import store from "../store";
 import Peer from "simple-peer";
-import { setLocalStream,setRemoteStreams } from "../slices/roomSlice";
+import { setRemoteStreams } from "../slices/roomSlice";
 import { signalPeerData } from "./socketConnection";
 
 
@@ -32,13 +32,13 @@ const onlyAudioConstraints = {
   };
   
 
-export const getLocalStreamPreview = (onlyAudio = false, callbackFunc) => {
+  export const getLocalStreamPreview = (onlyAudio = false, callbackFunc, setLocalStream) => {
     const constraints = onlyAudio ? onlyAudioConstraints : defaultConstraints;
   
     navigator.mediaDevices
       .getUserMedia(constraints)
       .then((stream) => {
-        store.dispatch(setLocalStream(stream));
+        setLocalStream(stream);
         callbackFunc();
       })
       .catch((err) => {
@@ -46,7 +46,6 @@ export const getLocalStreamPreview = (onlyAudio = false, callbackFunc) => {
         console.log("Cannot get an access to local stream");
       });
   };
-
   let peers = {};
 
 export const prepareNewPeerConnection = (connUserSocketId, isInitiator) => {

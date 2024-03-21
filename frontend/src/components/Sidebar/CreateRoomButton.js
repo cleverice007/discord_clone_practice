@@ -1,9 +1,14 @@
 import React from "react";
+import { useSelector } from "react-redux"; 
+import { useStream } from "../../StreamContext";
 import { createNewRoom } from "../../realtimeCommunication/roomHandler";
 
 const CreateRoomButton = ({ isUserInRoom }) => {
+  const audioOnly = useSelector((state) => state.room.audioOnly);
+  const { setLocalStream } = useStream();
+
   const createNewRoomHandler = () => {
-    createNewRoom();
+    createNewRoom(audioOnly, setLocalStream);
   };
 
   return (

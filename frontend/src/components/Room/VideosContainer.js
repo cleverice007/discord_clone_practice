@@ -1,9 +1,9 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useStream } from '../../StreamContext';
 import Video from "./Video";
 
 const VideosContainer = () => {
-  const { localStream, remoteStreams, screenSharingStream } = useSelector((state) => state.room);
+  const { localStream, remoteStreams, screenSharingStream } = useStream();
 
   return (
     <div className="h-5/6 w-full flex flex-wrap">

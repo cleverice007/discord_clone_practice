@@ -3,17 +3,30 @@ import { createNewRoom as createNewRoomSocket, joinRoom as joinRoomSocket } from
 import store from "../store";
 import {getLocalStreamPreview} from "./webRTCHandler.js";
 
-const createNewRoom = () => {
-    const successCalbackFunc = () => {
-      store.dispatch(setOpenRoom(true, true));
-  
-      const audioOnly = store.getState().room.audioOnly;
-      store.dispatch(setIsUserJoinedOnlyWithAudio(audioOnly));
-      createNewRoomSocket();    };
-  
-    const audioOnly = store.getState().room.audioOnly;
-    getLocalStreamPreview(audioOnly, successCalbackFunc);
+ const createNewRoom = (onlyAudio, setLocalStream) => {
+  const onlyAudioConstraints = {
+    audio: true,
+    video: false,
   };
+
+  const defaultConstraints = {
+    video: true,
+    audio: true,
+  };
+
+  const constraints = onlyAudio ? onlyAudioConstraints : defaultConstraints;
+
+  navigator.mediaDevices.getUserMedia(constraints)
+  .then(stream => {
+    setLocalStream(stream);
+    store.dispatch(setOpenRoom(true, true));
+    store.dispatch(setIsUserJoinedOnlyWithAudio(onlyAudio));
+    createNewRoomSocket();
+  })
+  .catch(err => {
+    console.error("Cannot get an access to local stream", err);
+  });
+};
   
   const newRoomCreated = (data) => {
     const { roomDetails } = data;
