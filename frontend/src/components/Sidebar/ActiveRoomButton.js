@@ -1,6 +1,8 @@
 import React from 'react';
 import Avatar from '../Avatar';
 import { joinRoom } from '../../realtimeCommunication/roomHandler';
+import { useSelector } from "react-redux"; 
+import { useStream } from "../../StreamContext";
 
 const ActiveRoomButton = ({
   creatorUsername,
@@ -8,9 +10,11 @@ const ActiveRoomButton = ({
   amountOfParticipants,
   isUserInRoom,
 }) => {
+  const audioOnly = useSelector((state) => state.room.audioOnly);
+  const { setLocalStream } = useStream();
   const handleJoinActiveRoom = () => {
     if (amountOfParticipants < 4) {
-      joinRoom(roomId);
+      joinRoom(roomId, audioOnly, setLocalStream);
     }
   };
 

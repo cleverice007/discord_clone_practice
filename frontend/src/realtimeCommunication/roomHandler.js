@@ -1,7 +1,6 @@
 import { setOpenRoom, setIsUserJoinedOnlyWithAudio,setRoomDetails,setActiveRooms } from "../slices/roomSlice";
 import { createNewRoom as createNewRoomSocket, joinRoom as joinRoomSocket } from "./socketConnection.js";
 import store from "../store";
-import {getLocalStreamPreview} from "./webRTCHandler.js";
 
  const createNewRoom = (onlyAudio, setLocalStream) => {
   const onlyAudioConstraints = {
@@ -33,18 +32,31 @@ import {getLocalStreamPreview} from "./webRTCHandler.js";
     store.dispatch(setRoomDetails(roomDetails));
   };
 
- const joinRoom = (roomId) => {
-    const successCalbackFunc = () => {
-      store.dispatch(setRoomDetails({ roomId }));
-      store.dispatch(setOpenRoom(false, true));
-      const audioOnly = store.getState().room.audioOnly;
-      store.dispatch(setIsUserJoinedOnlyWithAudio(audioOnly));
-      joinRoomSocket({ roomId });
-    };
-  
-    const audioOnly = store.getState().room.audioOnly;
-    getLocalStreamPreview(audioOnly, successCalbackFunc);
+ const joinRoom = (roomId,onlyAudio, setLocalStream) => {
+  const onlyAudioConstraints = {
+    audio: true,
+    video: false,
   };
+
+  const defaultConstraints = {
+    video: true,
+    audio: true,
+  };
+
+  const constraints = onlyAudio ? onlyAudioConstraints : defaultConstraints;
+
+  navigator.mediaDevices.getUserMedia(constraints)
+  .then(stream => {
+    setLocalStream(stream);
+    store.dispatch(setOpenRoom({ isUserRoomCreator: false, isUserInRoom: true }));
+    store.dispatch(setIsUserJoinedOnlyWithAudio(onlyAudio));
+    joinRoomSocket(roomId);
+  })
+  .catch(err => {
+    console.error("Cannot get an access to local stream", err);
+  });
+};
+
   
 
  const updateActiveRooms = (data) => {
