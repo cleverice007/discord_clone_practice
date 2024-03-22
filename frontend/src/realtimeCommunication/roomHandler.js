@@ -19,7 +19,7 @@ import {getLocalStreamPreview} from "./webRTCHandler.js";
   navigator.mediaDevices.getUserMedia(constraints)
   .then(stream => {
     setLocalStream(stream);
-    store.dispatch(setOpenRoom(true, true));
+    store.dispatch(setOpenRoom({ isUserRoomCreator: true, isUserInRoom: true }));
     store.dispatch(setIsUserJoinedOnlyWithAudio(onlyAudio));
     createNewRoomSocket();
   })
