@@ -54,11 +54,11 @@ export const connectWithSocketServer = (userDetails) => {
   });
 
 
-  socket.on("conn-prepare", (data) => {
-    const { connUserSocketId } = data;
-    prepareNewPeerConnection(connUserSocketId, false);
-    socket.emit("conn-init", { connUserSocketId: connUserSocketId });
-  });
+  //socket.on("conn-prepare", (data) => {
+  //  const { connUserSocketId } = data;
+  //  prepareNewPeerConnection(connUserSocketId, false,localStream);
+   // socket.emit("conn-init", { connUserSocketId: connUserSocketId });
+  // });
 
   socket.on("conn-init", (data) => {
     const { connUserSocketId } = data;

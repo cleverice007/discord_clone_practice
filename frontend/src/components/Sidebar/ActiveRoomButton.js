@@ -1,8 +1,11 @@
 import React from 'react';
 import Avatar from '../Avatar';
 import { joinRoom } from '../../realtimeCommunication/roomHandler';
-import { useSelector } from "react-redux"; 
+import { prepareNewPeerConnection } from '../../realtimeCommunication/webRTCHandler';
+import { useSelector } from "react-redux";
 import { useStream } from "../../StreamContext";
+import io from "socket.io-client";
+
 
 const ActiveRoomButton = ({
   creatorUsername,
@@ -10,11 +13,27 @@ const ActiveRoomButton = ({
   amountOfParticipants,
   isUserInRoom,
 }) => {
+  const userDetails = useSelector((state) => state.auth.userDetails);
+  const jwtToken = userDetails.token;
   const audioOnly = useSelector((state) => state.room.audioOnly);
-  const { setLocalStream } = useStream();
+  const { localStream, setLocalStream } = useStream();
   const handleJoinActiveRoom = () => {
     if (amountOfParticipants < 4) {
       joinRoom(roomId, audioOnly, setLocalStream);
+
+
+      const socket = io("http://localhost:5002", {
+        auth: {
+          token: jwtToken,
+        },
+      });
+
+
+      socket.on("conn-prepare", (data) => {
+        const { connUserSocketId } = data;
+        prepareNewPeerConnection(connUserSocketId, false, localStream);
+        socket.emit("conn-init", { connUserSocketId: connUserSocketId });
+      });
     }
   };
 

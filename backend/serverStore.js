@@ -89,22 +89,31 @@ const getActiveRoom = (roomId) => {
     return null;
   }
 };
-
 const joinActiveRoom = (roomId, newParticipant) => {
+  // 首先，找到與給定roomId匹配的房間
   const room = activeRooms.find((room) => room.roomId === roomId);
-  console.log("room has been found");
+  console.log("Room found:", room);
 
+  // 如果找不到房間，打印一個錯誤並返回，避免執行後面的代碼
+  if (!room) {
+    console.error("Room not found with roomId:", roomId);
+    return;
+  }
+
+  // 過濾出不包含當前roomId的所有房間
   activeRooms = activeRooms.filter((room) => room.roomId !== roomId);
-  console.log(activeRooms);
+  console.log("Active rooms after filter:", activeRooms);
 
+  // 建立一個更新過的房間物件，並將新參與者加入到participants陣列中
   const updatedRoom = {
     ...room,
     participants: [...room.participants, newParticipant],
   };
+  console.log("Updated room:", updatedRoom);
 
+  // 將更新過的房間物件推回到activeRooms陣列中
   activeRooms.push(updatedRoom);
 };
-
 
 export
  { setSocketServerInstance, getSocketServerInstance, addNewConnectedUser, 

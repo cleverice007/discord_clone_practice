@@ -32,31 +32,22 @@ import store from "../store";
     store.dispatch(setRoomDetails(roomDetails));
   };
 
- const joinRoom = (roomId,onlyAudio, setLocalStream) => {
-  const onlyAudioConstraints = {
-    audio: true,
-    video: false,
+  const joinRoom = (roomId, onlyAudio, setLocalStream) => {
+    const onlyAudioConstraints = { audio: true, video: false };
+    const defaultConstraints = { video: true, audio: true };
+    const constraints = onlyAudio ? onlyAudioConstraints : defaultConstraints;
+  
+    navigator.mediaDevices.getUserMedia(constraints)
+      .then(stream => {
+        setLocalStream(stream);
+        store.dispatch(setOpenRoom({ isUserRoomCreator: false, isUserInRoom: true }));
+        store.dispatch(setIsUserJoinedOnlyWithAudio(onlyAudio));
+        joinRoomSocket({roomId});
+              })
+      .catch(err => {
+        console.error("Cannot get an access to local stream", err);
+      });
   };
-
-  const defaultConstraints = {
-    video: true,
-    audio: true,
-  };
-
-  const constraints = onlyAudio ? onlyAudioConstraints : defaultConstraints;
-
-  navigator.mediaDevices.getUserMedia(constraints)
-  .then(stream => {
-    setLocalStream(stream);
-    store.dispatch(setOpenRoom({ isUserRoomCreator: false, isUserInRoom: true }));
-    store.dispatch(setIsUserJoinedOnlyWithAudio(onlyAudio));
-    joinRoomSocket(roomId);
-  })
-  .catch(err => {
-    console.error("Cannot get an access to local stream", err);
-  });
-};
-
   
 
  const updateActiveRooms = (data) => {

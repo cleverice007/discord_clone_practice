@@ -48,8 +48,7 @@ const onlyAudioConstraints = {
   };
   let peers = {};
 
-export const prepareNewPeerConnection = (connUserSocketId, isInitiator) => {
-  const localStream = store.getState().room.localStream;
+  export const prepareNewPeerConnection = (connUserSocketId, isInitiator, localStream) => {
 
   if (isInitiator) {
     console.log("preparing new peer connection as initiator");
