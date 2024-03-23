@@ -55,6 +55,10 @@ const registerSocketServer = (server) => {
     socket.on("room-join", (data) => {
       roomJoinHandler(socket, data);
     });
+    socket.on("conn-init", (data) => {
+      roomInitializeConnectionHandler(socket, data);
+    });
+
 
   });
 
