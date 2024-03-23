@@ -7,6 +7,7 @@ import { directChatHistoryHandler } from "./socketHandlers/directChatHistoryHand
 import { directMessageHandler } from "./socketHandlers/directMessageHandler.js";
 import {roomCreateHandler} from "./socketHandlers/roomCreateHandler.js";
 import { roomJoinHandler } from "./socketHandlers/roomJoinHandler.js";
+import { roomInitializeConnectionHandler } from "./socketHandlers/roomInitializeConnectionHandler.js";
 
 const registerSocketServer = (server) => {
   const io = new Server(server, {
@@ -57,6 +58,9 @@ const registerSocketServer = (server) => {
     });
     socket.on("conn-init", (data) => {
       roomInitializeConnectionHandler(socket, data);
+    });
+    socket.on("conn-signal", (data) => {
+      roomSignalingDataHandler(socket, data);
     });
 
 

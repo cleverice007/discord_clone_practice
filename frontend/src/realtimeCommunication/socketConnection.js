@@ -60,10 +60,10 @@ export const connectWithSocketServer = (userDetails) => {
    // socket.emit("conn-init", { connUserSocketId: connUserSocketId });
   // });
 
-  socket.on("conn-init", (data) => {
-    const { connUserSocketId } = data;
-  prepareNewPeerConnection(connUserSocketId, true);
-  });
+  //socket.on("conn-init", (data) => {
+   // const { connUserSocketId } = data;
+  //prepareNewPeerConnection(connUserSocketId, true);
+ // });
 
   socket.on("conn-signal", (data) => {
     handleSignalingData(data);
