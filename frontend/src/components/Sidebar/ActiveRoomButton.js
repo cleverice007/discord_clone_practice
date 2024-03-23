@@ -34,6 +34,11 @@ const ActiveRoomButton = ({
         prepareNewPeerConnection(connUserSocketId, false, localStream);
         socket.emit("conn-init", { connUserSocketId: connUserSocketId });
       });
+
+      socket.on("conn-init", (data) => {
+        const { connUserSocketId } = data;
+        prepareNewPeerConnection(connUserSocketId, true,localStream);
+      });
     }
   };
 
