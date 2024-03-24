@@ -8,6 +8,7 @@ import { directMessageHandler } from "./socketHandlers/directMessageHandler.js";
 import {roomCreateHandler} from "./socketHandlers/roomCreateHandler.js";
 import { roomJoinHandler } from "./socketHandlers/roomJoinHandler.js";
 import { roomInitializeConnectionHandler } from "./socketHandlers/roomInitializeConnectionHandler.js";
+import { roomSignalingDataHandler } from "./socketHandlers/roomSignalingDataHandler.js";
 
 const registerSocketServer = (server) => {
   const io = new Server(server, {
