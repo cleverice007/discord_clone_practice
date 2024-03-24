@@ -2,34 +2,31 @@ import { joinActiveRoom } from "../serverStore.js";
 import { updateRooms } from "./updates/room.js";
 import { getActiveRoom } from "../serverStore.js";
 
-
 const roomJoinHandler = (socket, data) => {
     const { roomId } = data;
-    console.log("Attempting to join room with ID:", roomId);
 
     const participantDetails = {
         userId: socket.user.userId,
         socketId: socket.id,
     };
 
-    // check if room exists
-    const roomDetails = getActiveRoom(roomId);
-    if (!roomDetails) {
-      console.error("No active room found with ID:", roomId);
-      return;
-    }
-
+    // 先加入活跃房间，更新参与者列表
     joinActiveRoom(roomId, participantDetails);
 
-    // send information to users in room that they should prepare for incoming connection
-    roomDetails.participants.forEach((participant) => {
+    // 再重新获取房间的最新详情，以确保包含所有更新
+    const updatedRoomDetails = getActiveRoom(roomId);
+    console.log('participants after join', updatedRoomDetails.participants);
+
+    updatedRoomDetails.participants.forEach((participant) => {
         if (participant.socketId !== participantDetails.socketId) {
             socket.to(participant.socketId).emit("conn-prepare", {
                 connUserSocketId: participantDetails.socketId,
             });
         }
     });
+
     updateRooms();
 };
+
 
 export { roomJoinHandler };

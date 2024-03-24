@@ -65,9 +65,10 @@ export const connectWithSocketServer = (userDetails) => {
   //prepareNewPeerConnection(connUserSocketId, true);
  // });
 
-  socket.on("conn-signal", (data) => {
-    handleSignalingData(data);
-  });
+  //socket.on("conn-signal", (data) => {
+   // handleSignalingData(data);
+  //});
+//
 };
 
 export const sendDirectMessage = (data) => {
@@ -84,6 +85,7 @@ export const createNewRoom = () => {
 };
 
 export const joinRoom = (data) => {
+  console.log("Emitting room-join event with data:", data);
   socket.emit("room-join", data);
 };
 

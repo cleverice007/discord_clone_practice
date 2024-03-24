@@ -7,6 +7,7 @@ const roomCreateHandler = (socket) => {
     const userId = socket.user.userId;
   
     const roomDetails = addNewActiveRoom(userId, socketId);
+    console.log('particpants who created room',roomDetails.participants)
   
     socket.emit("room-create", {
       roomDetails,

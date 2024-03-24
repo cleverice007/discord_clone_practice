@@ -17,7 +17,6 @@ const registerSocketServer = (server) => {
     },
   });
 
-  console.log('Socket.IO server has been set up.');
 
   setSocketServerInstance(io);
 
@@ -32,8 +31,6 @@ const registerSocketServer = (server) => {
   };
 
   io.on("connection", (socket) => {
-    console.log("user connected");
-    console.log(socket.id);
 
     newConnectionHandler(socket, io);
     emitOnlineUsers();

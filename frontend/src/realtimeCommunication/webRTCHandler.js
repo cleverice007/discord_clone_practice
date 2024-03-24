@@ -48,46 +48,34 @@ const onlyAudioConstraints = {
   };
   let peers = {};
 
-  export const prepareNewPeerConnection = (connUserSocketId, isInitiator, localStream) => {
-
-  if (isInitiator) {
-    console.log("preparing new peer connection as initiator");
-  } else {
-    console.log("preparing new peer connection as not initiator");
-  }
-
-  peers[connUserSocketId] = new Peer({
-    initiator: isInitiator,
-    config: getConfiguration(),
-    stream: localStream,
-  });
-
-  peers[connUserSocketId].on("signal", (data) => {
-    const signalData = {
-      signal: data,
-      connUserSocketId: connUserSocketId,
-    };
-
-    signalPeerData(signalData);
-  });
-
-  peers[connUserSocketId].on("stream", (remoteStream) => {
-    // add new remote stream to server store
-    console.log("remote stream came from other user");
-    console.log("direct connection has been established");
-    remoteStream.connUserSocketId = connUserSocketId;
-    addNewRemoteStream(remoteStream);
-  });
-};
-
-
-
-  const addNewRemoteStream = (remoteStream) => {
-    const remoteStreams = store.getState().room.remoteStreams;
-    const newRemoteStreams = [...remoteStreams, remoteStream];
-  
-    store.dispatch(setRemoteStreams(newRemoteStreams));
+  export const prepareNewPeerConnection = (connUserSocketId, isInitiator, localStream, setRemoteStreams) => {
+    console.log(`Preparing new peer connection. Initiator: ${isInitiator}, ConnUserSocketId: ${connUserSocketId}`);
+    
+    peers[connUserSocketId] = new Peer({
+      initiator: isInitiator,
+      config: getConfiguration(),
+      stream: localStream,
+    });
+    
+    peers[connUserSocketId].on("signal", (data) => {
+      console.log(`Signal received from peer ${connUserSocketId}`);
+      const signalData = {
+        signal: data,
+        connUserSocketId: connUserSocketId,
+      };
+      signalPeerData(signalData);
+    });
+    
+    peers[connUserSocketId].on("stream", (remoteStream) => {
+      console.log(`Remote stream received from user ${connUserSocketId}`);
+      addNewRemoteStream(remoteStream, setRemoteStreams);
+    });
   };
+
+
+const addNewRemoteStream = (remoteStream, setRemoteStreams) => {
+  setRemoteStreams(prevStreams => [...prevStreams, remoteStream]);
+};
 
   export const handleSignalingData = (data) => {
     const { connUserSocketId, signal } = data;
