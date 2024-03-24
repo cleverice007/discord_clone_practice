@@ -15,10 +15,10 @@ const roomJoinHandler = (socket, data) => {
 
     // 再重新获取房间的最新详情，以确保包含所有更新
     const updatedRoomDetails = getActiveRoom(roomId);
-    console.log('participants after join', updatedRoomDetails.participants);
 
     updatedRoomDetails.participants.forEach((participant) => {
         if (participant.socketId !== participantDetails.socketId) {
+            console.log(`Emitting conn-prepare to ${participant.socketId} for ${participantDetails.socketId}`);
             socket.to(participant.socketId).emit("conn-prepare", {
                 connUserSocketId: participantDetails.socketId,
             });

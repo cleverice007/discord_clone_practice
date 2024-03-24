@@ -18,7 +18,7 @@ export const connectWithSocketServer = (userDetails) => {
           token: jwtToken,
       },
   });
-
+  setSocketServerInstance(socket);
   socket.on("connect_error", (error) => {
       console.error("Connection Error:", error); 
   });
@@ -92,3 +92,11 @@ export const joinRoom = (data) => {
 export const signalPeerData = (data) => {
   socket.emit("conn-signal", data);
 };
+
+export const setSocketServerInstance = (ioInstance) => {
+  socket = ioInstance;
+};
+
+export const getSocketServerInstance = () => {
+  return socket;
+}
