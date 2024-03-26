@@ -68,8 +68,8 @@ const onlyAudioConstraints = {
     });
     
     peers[connUserSocketId].on("stream", (remoteStream) => {
-      console.log(`Remote stream received from user ${connUserSocketId}`);
-      addNewRemoteStream(remoteStream, setRemoteStreams);
+      console.log(`Remote stream received from user ${connUserSocketId}`, remoteStream);
+      addNewRemoteStream(remoteStream);
     });
   };
 
@@ -77,8 +77,9 @@ const onlyAudioConstraints = {
   const addNewRemoteStream = (remoteStream) => {
     const remoteStreams = store.getState().room.remoteStreams;
     const newRemoteStreams = [...remoteStreams, remoteStream];
-  
-    store.dispatch(setRemoteStreams(newRemoteStreams));
+    console.log('newRemoteStreams',newRemoteStreams)
+    store.dispatch(setRemoteStreams({ remoteStreams: newRemoteStreams }));
+    console.log('remoteStreams',store.getState().room.remoteStreams);
   };
 
   export const handleSignalingData = (data) => {
