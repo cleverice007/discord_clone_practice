@@ -30,26 +30,7 @@ const ActiveRoomButton = ({
 };
   
 
-  // 定義一個新的函數來設定 socket 事件監聽器
-  const setupSocketEventListeners = (socket, localStream, setRemoteStreams) => {
-    socket.on("connect", () => {
-      console.log("connect from dashboard", socket.id);
-    });
-    socket.on("conn-prepare", (data) => {
-      const { connUserSocketId } = data;
-      console.log('connPrepare', connUserSocketId);
-      prepareNewPeerConnection(connUserSocketId, false, localStream, setRemoteStreams);
-    });
-    socket.on("conn-init", (data) => {
-      const { connUserSocketId } = data;
-      console.log('connInit', connUserSocketId);
-      prepareNewPeerConnection(connUserSocketId, true, localStream, setRemoteStreams);
-    });
-    socket.on("conn-signal", (data) => {
-      console.log('connSignal', data);
-      handleSignalingData(data);
-    });
-  }
+
 
 
 

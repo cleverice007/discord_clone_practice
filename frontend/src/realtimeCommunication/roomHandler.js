@@ -1,6 +1,7 @@
-import { setOpenRoom, setIsUserJoinedOnlyWithAudio,setRoomDetails,setActiveRooms,setLocalStream } from "../slices/roomSlice";
-import { createNewRoom as createNewRoomSocket, joinRoom as joinRoomSocket } from "./socketConnection.js";
+import { setOpenRoom, setIsUserJoinedOnlyWithAudio,setRoomDetails,setActiveRooms,setLocalStream,setScreenSharingStream } from "../slices/roomSlice";
+import { createNewRoom as createNewRoomSocket, joinRoom as joinRoomSocket,leaveRoom } from "./socketConnection.js";
 import store from "../store";
+import {closeAllConnections} from "./webRTCHandler";
 
 // const createNewRoom = (onlyAudio, setLocalStream) => {
 const createNewRoom = (onlyAudio) => {
@@ -83,4 +84,28 @@ const createNewRoom = (onlyAudio) => {
     store.dispatch(setActiveRooms({activeRooms: rooms}));
   };
 
-  export { createNewRoom, newRoomCreated, joinRoom,updateActiveRooms}
+
+  const leaveRoom = () => {
+    const roomId = store.getState().room.roomDetails.roomId;
+  
+    const localStream = store.getState().room.localStream;
+    if (localStream) {
+      localStream.getTracks().forEach((track) => track.stop());
+      store.dispatch(setLocalStream(null));
+    }
+  
+    const screenSharingStream = store.getState().room.screenSharingStream;
+    if (screenSharingStream) {
+      screenSharingStream.getTracks().forEach((track) => track.stop());
+      store.dispatch(setScreenSharingStream(null));
+    }
+  
+    store.dispatch(setRemoteStreams([]));
+    closeAllConnections();
+  
+    leaveRoom({ roomId });
+    store.dispatch(setRoomDetails(null));
+    store.dispatch(setOpenRoom(false, false));
+  };
+
+  export { createNewRoom, newRoomCreated, joinRoom,updateActiveRooms,leaveRoom}
