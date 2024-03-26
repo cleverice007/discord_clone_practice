@@ -5,10 +5,11 @@ import { createNewRoom } from "../../realtimeCommunication/roomHandler";
 
 const CreateRoomButton = ({ isUserInRoom }) => {
   const audioOnly = useSelector((state) => state.room.audioOnly);
-  const { setLocalStream } = useStream();
+  //const { setLocalStream } = useStream();
 
   const createNewRoomHandler = () => {
-    createNewRoom(audioOnly, setLocalStream);
+  //  createNewRoom(audioOnly, setLocalStream);
+  createNewRoom(audioOnly);
   };
 
   return (

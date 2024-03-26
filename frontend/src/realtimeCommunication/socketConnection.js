@@ -54,21 +54,21 @@ export const connectWithSocketServer = (userDetails) => {
   });
 
 
-  //socket.on("conn-prepare", (data) => {
-  //  const { connUserSocketId } = data;
-  //  prepareNewPeerConnection(connUserSocketId, false,localStream);
-   // socket.emit("conn-init", { connUserSocketId: connUserSocketId });
-  // });
+  socket.on("conn-prepare", (data) => {
+    const { connUserSocketId } = data;
+    prepareNewPeerConnection(connUserSocketId, false);
+    socket.emit("conn-init", { connUserSocketId: connUserSocketId });
+     });
 
-  //socket.on("conn-init", (data) => {
-   // const { connUserSocketId } = data;
-  //prepareNewPeerConnection(connUserSocketId, true);
- // });
+  socket.on("conn-init", (data) => {
+    const { connUserSocketId } = data;
+  prepareNewPeerConnection(connUserSocketId, true);
+   });
 
-  //socket.on("conn-signal", (data) => {
-   // handleSignalingData(data);
-  //});
-//
+   socket.on("conn-signal", (data) => {
+    handleSignalingData(data);
+  });
+
 };
 
 export const sendDirectMessage = (data) => {

@@ -1,6 +1,6 @@
 import store from "../store";
 import Peer from "simple-peer";
-import { setRemoteStreams } from "../slices/roomSlice";
+import { setRemoteStreams,setLocalStream } from "../slices/roomSlice";
 import { signalPeerData } from "./socketConnection";
 
 
@@ -32,13 +32,13 @@ const onlyAudioConstraints = {
   };
   
 
-  export const getLocalStreamPreview = (onlyAudio = false, callbackFunc, setLocalStream) => {
+  export const getLocalStreamPreview = (onlyAudio = false, callbackFunc) => {
     const constraints = onlyAudio ? onlyAudioConstraints : defaultConstraints;
   
     navigator.mediaDevices
       .getUserMedia(constraints)
       .then((stream) => {
-        setLocalStream(stream);
+        store.dispatch(setLocalStream(stream));
         callbackFunc();
       })
       .catch((err) => {
@@ -48,9 +48,10 @@ const onlyAudioConstraints = {
   };
   let peers = {};
 
-  export const prepareNewPeerConnection = (connUserSocketId, isInitiator, localStream, setRemoteStreams) => {
+  export const prepareNewPeerConnection = (connUserSocketId, isInitiator) => {
+    const localStream = store.getState().room.localStream;
     console.log(`Preparing new peer connection. Initiator: ${isInitiator}, ConnUserSocketId: ${connUserSocketId}`);
-    
+    console.log(`Local stream: ${localStream}`);  
     peers[connUserSocketId] = new Peer({
       initiator: isInitiator,
       config: getConfiguration(),
@@ -73,9 +74,12 @@ const onlyAudioConstraints = {
   };
 
 
-const addNewRemoteStream = (remoteStream, setRemoteStreams) => {
-  setRemoteStreams(prevStreams => [...prevStreams, remoteStream]);
-};
+  const addNewRemoteStream = (remoteStream) => {
+    const remoteStreams = store.getState().room.remoteStreams;
+    const newRemoteStreams = [...remoteStreams, remoteStream];
+  
+    store.dispatch(setRemoteStreams(newRemoteStreams));
+  };
 
   export const handleSignalingData = (data) => {
     const { connUserSocketId, signal } = data;

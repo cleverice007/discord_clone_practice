@@ -1,8 +1,10 @@
-import { setOpenRoom, setIsUserJoinedOnlyWithAudio,setRoomDetails,setActiveRooms } from "../slices/roomSlice";
+import { setOpenRoom, setIsUserJoinedOnlyWithAudio,setRoomDetails,setActiveRooms,setLocalStream } from "../slices/roomSlice";
 import { createNewRoom as createNewRoomSocket, joinRoom as joinRoomSocket } from "./socketConnection.js";
 import store from "../store";
 
- const createNewRoom = (onlyAudio, setLocalStream) => {
+// const createNewRoom = (onlyAudio, setLocalStream) => {
+const createNewRoom = (onlyAudio) => {
+
   const onlyAudioConstraints = {
     audio: true,
     video: false,
@@ -17,7 +19,8 @@ import store from "../store";
 
   navigator.mediaDevices.getUserMedia(constraints)
   .then(stream => {
-    setLocalStream(stream);
+    //setLocalStream(stream);
+    store.dispatch(setLocalStream({ localStream: stream }));
     store.dispatch(setOpenRoom({ isUserRoomCreator: true, isUserInRoom: true }));
     store.dispatch(setIsUserJoinedOnlyWithAudio(onlyAudio));
     createNewRoomSocket();
@@ -52,7 +55,6 @@ import store from "../store";
 
  const updateActiveRooms = (data) => {
     const { activeRooms } = data;
-    console.log('activeRooms',activeRooms)
     const friends = store.getState().friends.friends;
     const rooms = [];
     const userId = store.getState().auth.userDetails?.id;
