@@ -89,3 +89,13 @@ const onlyAudioConstraints = {
       peers[connUserSocketId].signal(signal);
     }
   };
+
+  export const closeAllConnections = () => {
+    Object.entries(peers).forEach((mappedObject) => {
+      const connUserSocketId = mappedObject[0];
+      if (peers[connUserSocketId]) {
+        peers[connUserSocketId].destroy();
+        delete peers[connUserSocketId];
+      }
+    });
+  };
