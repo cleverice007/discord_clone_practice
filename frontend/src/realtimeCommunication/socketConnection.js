@@ -67,6 +67,11 @@ export const connectWithSocketServer = (userDetails) => {
 
    socket.on("conn-signal", (data) => {
     handleSignalingData(data);
+
+    socket.on("room-leave", (data) => {
+      roomLeaveHandler(socket, data);
+    });
+
   });
 
 };
@@ -100,3 +105,7 @@ export const setSocketServerInstance = (ioInstance) => {
 export const getSocketServerInstance = () => {
   return socket;
 }
+
+export const leaveRoom = (data) => {
+  socket.emit("room-leave", data);
+};
