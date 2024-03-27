@@ -1,7 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { leaveRoom } from "../../realtimeCommunication/roomHandler";
+import { leaveRoom } from '../../../realtimeCommunication/roomHandler';
 
 
 const CloseRoomButton = () => {
