@@ -9,6 +9,7 @@ import {roomCreateHandler} from "./socketHandlers/roomCreateHandler.js";
 import { roomJoinHandler } from "./socketHandlers/roomJoinHandler.js";
 import { roomInitializeConnectionHandler } from "./socketHandlers/roomInitializeConnectionHandler.js";
 import { roomSignalingDataHandler } from "./socketHandlers/roomSignalingDataHandler.js";
+import { roomLeaveHandler } from "./socketHandlers/roomLeaveHandler.js";
 
 const registerSocketServer = (server) => {
   const io = new Server(server, {
