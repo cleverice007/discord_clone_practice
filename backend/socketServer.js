@@ -61,6 +61,10 @@ const registerSocketServer = (server) => {
       roomSignalingDataHandler(socket, data);
     });
 
+    socket.on("room-leave", (data) => {
+      roomLeaveHandler(socket, data);
+    });
+
 
   });
 

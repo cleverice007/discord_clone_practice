@@ -68,10 +68,6 @@ export const connectWithSocketServer = (userDetails) => {
    socket.on("conn-signal", (data) => {
     handleSignalingData(data);
 
-    socket.on("room-leave", (data) => {
-      roomLeaveHandler(socket, data);
-    });
-
   });
 
 };
