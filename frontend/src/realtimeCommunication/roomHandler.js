@@ -34,7 +34,7 @@ const createNewRoom = (onlyAudio) => {
 
 const newRoomCreated = (data) => {
   const { roomDetails } = data;
-  store.dispatch(setRoomDetails(roomDetails));
+  store.dispatch(setRoomDetails({roomDetails}));
 };
 const joinRoom = (roomId, onlyAudio) => {
   const onlyAudioConstraints = {
@@ -51,10 +51,10 @@ const joinRoom = (roomId, onlyAudio) => {
 
   navigator.mediaDevices.getUserMedia(constraints)
     .then(stream => {
-      console.log("Local stream:", stream);
       store.dispatch(setLocalStream({ localStream: stream }));
       store.dispatch(setOpenRoom({ isUserRoomCreator: false, isUserInRoom: true }));
       store.dispatch(setIsUserJoinedOnlyWithAudio(onlyAudio));
+      store.dispatch(setRoomDetails({ roomDetails: { roomId } }));
       joinRoomSocket({ roomId });
     })
     .catch(err => {
@@ -87,25 +87,28 @@ const updateActiveRooms = (data) => {
 
 
 const leaveRoom = () => {
+  const room = store.getState().room.roomDetails;
+  console.log('room',room)
   const roomId = store.getState().room.roomDetails.roomId;
+  console.log('roomid',roomId)
 
   const localStream = store.getState().room.localStream;
   if (localStream) {
     localStream.getTracks().forEach((track) => track.stop());
-    store.dispatch(setLocalStream(null));
+    store.dispatch(setLocalStream({ localStream:null }));
   }
 
   const screenSharingStream = store.getState().room.screenSharingStream;
   if (screenSharingStream) {
     screenSharingStream.getTracks().forEach((track) => track.stop());
-    store.dispatch(setScreenSharingStream(null));
+    store.dispatch(setScreenSharingStream({screenSharingStream:null}));
   }
 
   store.dispatch(setRemoteStreams([]));
   closeAllConnections();
 
   leaveRoomSocket({ roomId });
-  store.dispatch(setRoomDetails(null));
+  store.dispatch(setRoomDetails({ roomDetails: null }));
   store.dispatch(setOpenRoom(false, false));
 };
 

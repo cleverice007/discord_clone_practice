@@ -38,7 +38,7 @@ const onlyAudioConstraints = {
     navigator.mediaDevices
       .getUserMedia(constraints)
       .then((stream) => {
-        store.dispatch(setLocalStream(stream));
+        store.dispatch(setLocalStream({ localStream: stream }));
         callbackFunc();
       })
       .catch((err) => {
@@ -114,5 +114,5 @@ const onlyAudioConstraints = {
       (remoteStream) => remoteStream.connUserSocketId !== connUserSocketId
     );
   
-    store.dispatch(setRemoteStreams(newRemoteStreams));
+    store.dispatch(setRemoteStreams({remoteStreams: newRemoteStreams}));
   };
