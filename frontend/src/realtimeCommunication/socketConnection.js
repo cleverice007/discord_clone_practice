@@ -3,7 +3,7 @@ import { setPendingFriendsInvitations, setFriends, setOnlineUsers } from '../sli
 import store from "../store";
 import { updateDirectChatHistoryIfActive } from '../utils/chat';
 import { newRoomCreated, updateActiveRooms } from './roomHandler';
-import { prepareNewPeerConnection, handleSignalingData } from './webRTCHandler';
+import { prepareNewPeerConnection, handleSignalingData,handleParticipantLeftRoom } from './webRTCHandler';
 
 let socket = null;
 
@@ -67,7 +67,11 @@ export const connectWithSocketServer = (userDetails) => {
 
    socket.on("conn-signal", (data) => {
     handleSignalingData(data);
+  });
 
+  socket.on("room-participant-left", (data) => {
+    console.log("user left room");
+    handleParticipantLeftRoom(data);
   });
 
 };
