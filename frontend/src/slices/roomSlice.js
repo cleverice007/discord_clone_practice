@@ -38,8 +38,8 @@ const initialState = {
         state.remoteStreams = action.payload.remoteStreams;
       },
       setScreenSharingStream(state, action) {
-        state.screenSharingStream = action.payload.screenSharingStream;
-        state.isScreenSharingActive = action.payload.isScreenSharingActive;
+        state.screenSharingStream = action.payload.screenSharingStream || null;
+        state.isScreenSharingActive = !!action.payload.screenSharingStream;
       },
       setIsUserJoinedOnlyWithAudio(state, action) {
         state.isUserJoinedWithOnlyAudio = action.payload.isUserJoinedWithOnlyAudio;
