@@ -13,7 +13,7 @@ const DropdownMenu = () => {
         try {
             // dispatch the logout action
             dispatch(logout());
-            localStorage.removeItem('userinfo');
+            localStorage.removeItem('userDetails');
             navigate('/login');
         } catch (error) {
             console.error('Logout failed:', error);
