@@ -81,3 +81,33 @@
     - 數據從 Redux 的 `slices` 流向 `components`，由上層components傳遞到下層components。
     - 上層components通過 Redux 獲得數據。
     - 下層components透過 props 接收 handler functions 和其他數據。
+
+後端部分，包含用戶認證、好友邀請、即時通訊等功能
+
+## Directory Structure
+
+- `controllers`: 包含所有的控制器，用於處理req & res。
+- `middlewares`: auth & authSocket。
+- `routes`: 定義 API 路徑和相關的請求處理。
+- `models`: 定義mongodb schema。
+- `socketHandlers`: 處理所有與 WebSocket 相關的事件和邏輯。
+
+### Controllers
+- `auth`: 處理用戶登入相關的業務邏輯。
+- `friendInvitation`: 處理好友邀請的相關請求。
+
+### Middlewares
+- `auth`: 檢查 JWT token，並將驗證後的用戶信息添加到 `req.user`。
+- `authSocket`: 處理 WebSocket 連接時的身份驗證，從 `handshake.auth` 屬性中獲取 token。
+
+### Routes
+- 本部分將根據 `controllers` 中定義的邏輯來設定 API 的路由。
+
+### Models
+- 定義與database 交互所需的所有schema。
+
+### SocketHandlers
+- `roomCreateHandler ＆ roomJoinHandler &  roomLeaveHandler`: 處理建立、加入、離開房間的事件。
+- `connectHandler & disconnectHandler`: 管理用戶的連接和重連事件。
+- `directChatHistoryHandler & directMessageHandler`: 處理聊天歷史的請求和回應。
+- `roomSignalingDataHandler`: 處理視訊通話中的 signaling 數據，並發送必要的事件到接收者。
