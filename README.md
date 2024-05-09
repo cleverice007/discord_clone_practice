@@ -1,4 +1,13 @@
 # Discord Clone Practice
+![註冊](https://github.com/cleverice007/discord_clone_practice/blob/main/截圖%202024-05-09%20上午11.09.36.png)
+![邀請](https://github.com/cleverice007/discord_clone_practice/blob/main/截圖%202024-05-09%20上午11.18.28.png)
+![聊天](https://github.com/cleverice007/discord_clone_practice/blob/main/截圖%202024-05-09%20上午11.21.06.png)
+![視訊](https://github.com/cleverice007/discord_clone_practice/blob/main/截圖%202024-05-09%20上午11.21.29.png)
+![分享畫面](https://github.com/cleverice007/discord_clone_practice/blob/main/截圖%202024-05-09%20上午11.21.56.png)
+
+
+
+
 
 ## Description
 模仿 Discord 的練習 project，實現登入、加入好友、聊天、視訊（螢幕分享）等功能。目的在練習使用Socket,webRTC, 打造real time communication 的聊天、視訊project
