@@ -120,3 +120,15 @@
 - `connectHandler & disconnectHandler`: 管理用戶的連接和重連事件。
 - `directChatHistoryHandler & directMessageHandler`: 處理聊天歷史的請求和回應。
 - `roomSignalingDataHandler`: 處理視訊通話中的 signaling 數據，並發送必要的事件到接收者。
+
+## install and run
+```bash
+cd backend
+npm install
+node index.js
+
+cd ..
+cd frontend
+npm install
+npm run start
+
